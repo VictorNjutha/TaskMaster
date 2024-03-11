@@ -14,7 +14,7 @@ const GroupList = ({ groupLeaderId }) => {
           headers: {
             'Authorization': `Bearer ${token}`
           }
-        });
+        });JUMY
         if (!response.ok) {
           throw new Error('Failed to fetch users');
         }
