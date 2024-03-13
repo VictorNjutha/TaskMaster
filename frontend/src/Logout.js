@@ -33,7 +33,7 @@ const Logout = () => {
       if (!response.ok) {
         throw new Error('Failed to delete account');
       }
-      
+      // Clear token from local storage upon successful account deletion
       localStorage.removeItem('token');
       console.log('Account deleted successfully');
     } catch (error) {
