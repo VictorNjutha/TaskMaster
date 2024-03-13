@@ -26,7 +26,7 @@ function Login() {
     })
     .catch(error => {
       console.error('Error:', error);
-      // Handle error here
+     
     });
   };
 
