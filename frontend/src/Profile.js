@@ -36,7 +36,7 @@ const Profile = () => {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('token'), 
+          'Authorization': 'Bearer ' + localStorage.getItem('token'), // Include the JWT token from localStorage
         },
         body: JSON.stringify({
           username: userData.username,
