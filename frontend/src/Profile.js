@@ -46,7 +46,7 @@ const Profile = () => {
       if (!response.ok) {
         throw new Error('Failed to update user profile');
       }
-      // User profile updated successfully
+     
       console.log('User profile updated successfully');
     } catch (error) {
       console.error('Error updating user profile:', error.message);
