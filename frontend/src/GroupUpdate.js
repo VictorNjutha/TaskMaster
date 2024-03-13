@@ -76,7 +76,7 @@ const GroupUpdate = ({ groupLeaderId, userId, taskId, onUpdate, onDelete }) => {
       if (!response.ok) {
         throw new Error('Failed to delete task');
       }
-      onDelete(); 
+      onDelete(); // Notify parent component of successful deletion
     } catch (error) {
       console.error('Error deleting task:', error.message);
     }
