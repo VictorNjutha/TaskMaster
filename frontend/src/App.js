@@ -1,4 +1,3 @@
-
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NavBar from './NavBar';
@@ -15,6 +14,8 @@ import Promote from './Promote';
 import TaskForm from './TaskForm';
 import TaskList from './TaskList';
 import UpdateForm from './UpdateForm';
+import Dashboard from './Dashboard'; // Import the Dashboard component
+// import images from './data'; // Import images from data.js
 
 const App = () => {
   return (
@@ -30,11 +31,12 @@ const App = () => {
           <Route path="/groupform" element={<GroupForm />} />
           <Route path="/grouplist" element={<GroupList />} />
           <Route path="/groupupdate" element={<GroupUpdate />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile />} /> {/* Pass images as prop to Profile */}
           <Route path="/promote" element={<Promote />} />
           <Route path="/taskform" element={<TaskForm />} />
-          <Route path="/tasklist" element={<TaskList />} />
+          <Route path="/tasklist" element={<TaskList />} /> {/* Pass images as prop to TaskList */}
           <Route path="/updateform" element={<UpdateForm />} />
+          <Route path="/dashboard" element={<Dashboard />} /> {/* Define the route for Dashboard */}
         </Routes>
       </div>
     </Router>
