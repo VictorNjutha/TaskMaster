@@ -18,8 +18,8 @@ function TaskForm() {
     fetch('http://127.0.0.1:5552/tasks', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json', // Specify the content type as JSON
-        'Authorization': `Bearer ${localStorage.getItem('access_token')}` // Add JWT token from local storage
+        'Content-Type': 'application/json', 
+        'Authorization': `Bearer ${localStorage.getItem('access_token')}` 
       },
       body: JSON.stringify({
         title: formData.title,
@@ -33,7 +33,7 @@ function TaskForm() {
       if (!response.ok) {
         throw new Error('Failed to create task');
       }
-      // Handle successful task creation
+     
       console.log('Task created successfully');
     })
     .catch(error => {
