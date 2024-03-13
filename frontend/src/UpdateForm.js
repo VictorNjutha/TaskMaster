@@ -59,7 +59,7 @@ function UpdateForm({ taskId, accessToken, onUpdate, onDelete }) {
       }
       // Handle successful deletion
       console.log('Task deleted successfully');
-      onDelete(taskId); // Pass taskId to parent component
+      onDelete(taskId); 
     })
     .catch(error => {
       console.error('Error deleting task:', error);
