@@ -1,142 +1,104 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-const UpdateForm = () => {
-  const [taskData, setTaskData] = useState({
-    id: '',
+function UpdateForm({ taskId, accessToken, onUpdate, onDelete }) {
+  const [formData, setFormData] = useState({
     title: '',
     description: '',
     deadline: '',
     progress: 0,
-    priority: 'normal',
-    completed: false,
+    priority: '',
+    completed: false
   });
 
-  const [taskTitles, setTaskTitles] = useState([]);
+  const handleChange = (e) => {
+    const value = e.target.type === 'checkbox' ? e.target.checked : e.target.value;
+    setFormData({ ...formData, [e.target.name]: value });
+  };
+  
 
-  useEffect(() => {
-    const fetchTaskTitles = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:5552/tasks/titles', {
-          method: 'GET',
-          headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('token'),
-          },
-        });
-        if (!response.ok) {
-          throw new Error('Failed to fetch task titles');
-        }
-        const data = await response.json();
-        setTaskTitles(data.taskTitles);
-      } catch (error) {
-        console.error('Error fetching task titles:', error.message);
-      }
-    };
-
-    fetchTaskTitles();
-  }, []);
-
-  useEffect(() => {
-    // Fetch task data when the id changes
-    const fetchTaskData = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:5552/tasks/' + taskData.id, {
-          method: 'GET',
-          headers: {
-            'Authorization': 'Bearer ' + localStorage.getItem('token'),
-          },
-        });
-        if (!response.ok) {
-          throw new Error('Failed to fetch task data');
-        }
-        const data = await response.json();
-        setTaskData(data.task);
-      } catch (error) {
-        console.error('Error fetching task data:', error.message);
-      }
-    };
-
-    fetchTaskData();
-  }, [taskData.id]);
-
-  const handleSubmit = async (e) => {
+  const handleUpdate = (e) => {
     e.preventDefault();
-    try {
-      const response = await fetch('http://127.0.0.1:5552/tasks/' + taskData.id, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('token'),
-        },
-        body: JSON.stringify(taskData),
-      });
+    
+    // Log the taskId for debugging
+    console.log('Updating task with ID:', taskId);
+  
+    // Send update request with formData
+    fetch(`http://127.0.0.1:5552/tasks/${taskId}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+      },
+      body: JSON.stringify(formData)
+    })
+    .then(response => {
       if (!response.ok) {
         throw new Error('Failed to update task');
       }
+      // Handle successful update
       console.log('Task updated successfully');
-    } catch (error) {
-      console.error('Error updating task:', error.message);
-    }
+      onUpdate(taskId, formData); // Pass taskId and updated formData to parent component
+    })
+    .catch(error => {
+      console.error('Error updating task:', error);
+    });
   };
+    
 
-  const handleDelete = async () => {
-    try {
-      const response = await fetch('http://127.0.0.1:5552/tasks/' + taskData.id, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': 'Bearer ' + localStorage.getItem('token'),
-        },
-      });
+  const handleDelete = () => {
+    // Send delete request for the taskId
+    fetch(`http://127.0.0.1:5552/tasks/${taskId}`, {
+      method: 'DELETE',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+      }
+    })
+    .then(response => {
       if (!response.ok) {
         throw new Error('Failed to delete task');
       }
+      // Handle successful deletion
       console.log('Task deleted successfully');
-    } catch (error) {
-      console.error('Error deleting task:', error.message);
-    }
+      onDelete(taskId); // Pass taskId to parent component
+    })
+    .catch(error => {
+      console.error('Error deleting task:', error);
+    });
   };
 
   return (
     <div>
-      <h2>Update Task</h2>
-      <form onSubmit={handleSubmit}>
+      <h3>Update Task</h3>
+      <form onSubmit={handleUpdate}>
         <div>
-          {/* Dropdown for task titles */}
           <label>Title:</label>
-          <select value={taskData.title} onChange={(e) => setTaskData({ ...taskData, title: e.target.value })}>
-            {taskTitles.map((title, index) => (
-              <option key={index} value={title}>{title}</option>
-            ))}
-          </select>
+          <input type="text" name="title" value={formData.title} onChange={handleChange} />
         </div>
         <div>
           <label>Description:</label>
-          <textarea name="description" value={taskData.description} onChange={(e) => setTaskData({ ...taskData, description: e.target.value })}></textarea>
+          <input type="text" name="description" value={formData.description} onChange={handleChange} />
         </div>
         <div>
           <label>Deadline:</label>
-          <input type="date" name="deadline" value={taskData.deadline} onChange={(e) => setTaskData({ ...taskData, deadline: e.target.value })} />
+          <input type="text" name="deadline" value={formData.deadline} onChange={handleChange} />
         </div>
         <div>
           <label>Progress:</label>
-          <input type="number" name="progress" value={taskData.progress} onChange={(e) => setTaskData({ ...taskData, progress: e.target.value })} />
+          <input type="number" name="progress" value={formData.progress} onChange={handleChange} />
         </div>
         <div>
           <label>Priority:</label>
-          <select name="priority" value={taskData.priority} onChange={(e) => setTaskData({ ...taskData, priority: e.target.value })}>
-            <option value="low">Low</option>
-            <option value="normal">Normal</option>
-            <option value="high">High</option>
-          </select>
+          <input type="text" name="priority" value={formData.priority} onChange={handleChange} />
         </div>
         <div>
           <label>Completed:</label>
-          <input type="checkbox" name="completed" checked={taskData.completed} onChange={(e) => setTaskData({ ...taskData, completed: e.target.checked })} />
+          <input type="checkbox" name="completed" checked={formData.completed} onChange={handleChange} />
         </div>
-        <button type="submit">Update Task</button>
+        <button type="submit">Update</button>
       </form>
-      <button onClick={handleDelete}>Delete Task</button>
+      <button onClick={handleDelete}>Delete</button>
     </div>
   );
-};
+}
 
 export default UpdateForm;
