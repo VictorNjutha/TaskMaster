@@ -1,118 +1,114 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
-const GroupUpdate = ({ groupLeaderId, userId, taskId, onUpdate, onDelete }) => {
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [deadline, setDeadline] = useState('');
-  const [progress, setProgress] = useState('');
-  const [priority, setPriority] = useState('');
-  const [completed, setCompleted] = useState(false);
+function GroupUpdate({ groupLeaderId, userId, task }) {
+  const [updatedTask, setUpdatedTask] = useState(task);
 
-  useEffect(() => {
-    // Fetch task details when component mounts
-    const fetchTask = async () => {
-      try {
-        const token = localStorage.getItem('token');
-        const response = await fetch(`http://127.0.0.1:5552/group_leaders/${groupLeaderId}/users/${userId}/tasks/${taskId}`, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${token}`
-          }
-        });
-        if (!response.ok) {
-          throw new Error('Failed to fetch task details');
-        }
-        const data = await response.json();
-        const taskDetails = data.task;
-        setTitle(taskDetails.title);
-        setDescription(taskDetails.description);
-        setDeadline(taskDetails.deadline);
-        setProgress(taskDetails.progress);
-        setPriority(taskDetails.priority);
-        setCompleted(taskDetails.completed);
-      } catch (error) {
-        console.error('Error fetching task details:', error.message);
-      }
+  const handleUpdate = () => {
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+      // Handle case where access token is not available
+      console.error('Access token not found');
+      return;
+    }
+  
+    // Ensure completed field is a boolean value
+    const updatedTaskWithBooleanCompleted = {
+      ...updatedTask,
+      completed: updatedTask.completed === 'true' // Convert 'on' string to boolean
     };
-    fetchTask();
-  }, [groupLeaderId, userId, taskId]);
-
-  const handleUpdate = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`http://127.0.0.1:5552/group_leaders/${groupLeaderId}/users/${userId}/tasks/${taskId}`, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          title,
-          description,
-          deadline,
-          progress,
-          priority,
-          completed
-        })
-      });
-      if (!response.ok) {
-        throw new Error('Failed to update task');
-      }
-      onUpdate(); // Notify parent component of successful update
-    } catch (error) {
-      console.error('Error updating task:', error.message);
-    }
-  };
-
-  const handleDelete = async () => {
-    try {
-      const token = localStorage.getItem('token');
-      const response = await fetch(`http://127.0.0.1:5552/group_leaders/${groupLeaderId}/users/${userId}/tasks/${taskId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`
+  
+    fetch(`http://127.0.0.1:5552/group_leaders/${groupLeaderId}/users/${userId}/tasks/${task.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`,
+      },
+      body: JSON.stringify(updatedTaskWithBooleanCompleted), // Send updatedTaskWithBooleanCompleted instead of updatedTask
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to update task');
         }
-      });
-      if (!response.ok) {
-        throw new Error('Failed to delete task');
-      }
-      onDelete(); // Notify parent component of successful deletion
-    } catch (error) {
-      console.error('Error deleting task:', error.message);
+        console.log('Task updated successfully');
+      })
+      .catch(error => console.error('Error updating task:', error));
+  };
+  
+
+  const handleDelete = () => {
+    const accessToken = localStorage.getItem('access_token');
+    if (!accessToken) {
+      // Handle case where access token is not available
+      console.error('Access token not found');
+      return;
     }
+
+    fetch(`http://127.0.0.1:5552/group_leaders/${groupLeaderId}/users/${userId}/tasks/${task.id}`, {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to delete task');
+        }
+        console.log('Task deleted successfully');
+      })
+      .catch(error => console.error('Error deleting task:', error));
   };
 
   return (
     <div>
-      <h2>Edit Task</h2>
-      <div>
-        <label>Title: </label>
-        <input type="text" value={title} onChange={(e) => setTitle(e.target.value)} />
-      </div>
-      <div>
-        <label>Description: </label>
-        <textarea value={description} onChange={(e) => setDescription(e.target.value)} />
-      </div>
-      <div>
-        <label>Deadline: </label>
-        <input type="date" value={deadline} onChange={(e) => setDeadline(e.target.value)} />
-      </div>
-      <div>
-        <label>Progress: </label>
-        <input type="number" value={progress} onChange={(e) => setProgress(e.target.value)} />
-      </div>
-      <div>
-        <label>Priority: </label>
-        <input type="text" value={priority} onChange={(e) => setPriority(e.target.value)} />
-      </div>
-      <div>
-        <label>Completed: </label>
-        <input type="checkbox" checked={completed} onChange={(e) => setCompleted(e.target.checked)} />
-      </div>
+      <h3>Edit Task</h3>
+      <label>Title:</label>
+      <input
+        type="text"
+        value={updatedTask?.title || ''}
+        onChange={e => setUpdatedTask({ ...updatedTask, title: e.target.value })}
+      />
+
+      <label>Description:</label>
+      <textarea
+        value={updatedTask?.description || ''}
+        onChange={e => setUpdatedTask({ ...updatedTask, description: e.target.value })}
+      ></textarea>
+
+      <label>Deadline:</label>
+      <input
+        type="text"
+        value={updatedTask?.deadline || ''}
+        onChange={e => setUpdatedTask({ ...updatedTask, deadline: e.target.value })}
+      />
+
+      <label>Progress:</label>
+      <input
+        type="number"
+        value={updatedTask?.progress || 0}
+        onChange={e => setUpdatedTask({ ...updatedTask, progress: parseInt(e.target.value) || 0 })}
+      />
+
+      <label>Priority:</label>
+      <select
+        value={updatedTask?.priority || ""}
+        onChange={e => setUpdatedTask({ ...updatedTask, priority: e.target.value })}
+      >
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+
+      <label>Completed:</label>
+      <input
+        type="checkbox"
+        checked={updatedTask?.completed || false}
+        onChange={e => setUpdatedTask({ ...updatedTask, completed: e.target.checked })}
+      />
+
       <button onClick={handleUpdate}>Update</button>
       <button onClick={handleDelete}>Delete</button>
     </div>
   );
-};
+}
 
 export default GroupUpdate;

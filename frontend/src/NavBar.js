@@ -44,6 +44,9 @@ const NavBar = () => {
         <li>
           <Link to="/updateform">Update Form</Link>
         </li>
+        <li>
+          <Link to="/dashboard">Dashboard</Link> {/* Add Dashboard link */}
+        </li>
       </ul>
     </nav>
   );

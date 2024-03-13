@@ -19,10 +19,18 @@ function Login() {
       },
       body: JSON.stringify(formData),
     })
-    .then(response => response.json())
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to login');
+      }
+      return response.json();
+    })
     .then(data => {
       console.log(data);
-      // Handle success or error here
+      // Save access token to local storage
+      localStorage.setItem('accessToken', data.access_token);
+      // Handle success
+      // Redirect or perform any other actions
     })
     .catch(error => {
       console.error('Error:', error);
