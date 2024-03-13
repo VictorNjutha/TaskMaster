@@ -57,7 +57,7 @@ function UpdateForm({ taskId, accessToken, onUpdate, onDelete }) {
       if (!response.ok) {
         throw new Error('Failed to delete task');
       }
-      // Handle successful deletion
+      
       console.log('Task deleted successfully');
       onDelete(taskId); 
     })
