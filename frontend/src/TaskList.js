@@ -8,7 +8,6 @@ const defaultProfileImage = 'https://image.kilimall.com/kenya/shop/store/goods/5
 function TaskList() {
   const [showAllTasks, setShowAllTasks] = useState(false);
   const [tasks, setTasks] = useState([]);
-  
 
   useEffect(() => {
     const fetchTasks = () => {
