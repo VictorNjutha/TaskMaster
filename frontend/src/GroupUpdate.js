@@ -58,7 +58,7 @@ const GroupUpdate = ({ groupLeaderId, userId, taskId, onUpdate, onDelete }) => {
       if (!response.ok) {
         throw new Error('Failed to update task');
       }
-      onUpdate(); // Notify parent component of successful update
+      onUpdate(); 
     } catch (error) {
       console.error('Error updating task:', error.message);
     }
