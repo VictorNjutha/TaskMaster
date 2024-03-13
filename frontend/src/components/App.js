@@ -1,21 +1,20 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import NavBar from './NavBar';
+import NavBar from '../NavBar';
 import Register from './Register';
 import Login from './Login';
-import Logout from './Logout';
+import Logout from '../Logout';
 import Comments from './Comments';
-import Demote from './Demote';
+import Demote from '../Demote';
 import GroupForm from './GroupForm';
 import GroupList from './GroupList';
-import GroupUpdate from './GroupUpdate';
-import Profile from './Profile';
+import GroupUpdate from '../GroupUpdate';
+import Profile from '../Profile';
 import Promote from './Promote';
-import TaskForm from './TaskForm';
+import TaskForm from '../TaskForm';
 import TaskList from './TaskList';
-import UpdateForm from './UpdateForm';
-import Dashboard from './Dashboard'; // Import the Dashboard component
-// import images from './data'; // Import images from data.js
+import UpdateForm from '../UpdateForm';
+import Dashboard from './Dashboard'; 
 
 const App = () => {
   return (
