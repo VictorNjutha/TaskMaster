@@ -19,6 +19,7 @@ function UpdateForm({ taskId, accessToken, onUpdate, onDelete }) {
   const handleUpdate = (e) => {
     e.preventDefault();
     
+    
     // Log the taskId for debugging
     console.log('Updating task with ID:', taskId);
   
