@@ -1,55 +1,96 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import Comments from './Comments';
+import UpdateForm from './UpdateForm';
 
-const TaskList = () => {
+// Define the default profile image URL
+const defaultProfileImage = 'https://image.kilimall.com/kenya/shop/store/goods/5603/2022/09/1663988910431b23368a706e8434e822580b9ab7cba98_360.jpg.webp#';
+
+function TaskList() {
+  const [showAllTasks, setShowAllTasks] = useState(false);
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const response = await fetch('http://127.0.0.1:5552/tasks');
+    const fetchTasks = () => {
+      const url = showAllTasks ? 'http://127.0.0.1:5552/all-tasks' : 'http://127.0.0.1:5552/tasks';
+      fetch(url, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        }
+      })
+      .then(response => {
         if (!response.ok) {
           throw new Error('Failed to fetch tasks');
         }
-        const tasksData = await response.json();
-        setTasks(tasksData.tasks);
-      } catch (error) {
-        console.error('Error fetching tasks:', error.message);
-      }
+        return response.json();
+      })
+      .then(data => {
+        setTasks(data.tasks);
+      })
+      .catch(error => {
+        console.error('Error fetching tasks:', error);
+      });
     };
 
     fetchTasks();
-  }, []);
+  }, [showAllTasks]); // Include showAllTasks in the dependency array
+
+  const handleUpdateTask = (taskId, newData) => {
+    // Implement function to update task
+    console.log('Updating task', taskId, 'with data:', newData);
+  };
+
+  const handleDeleteTask = (taskId) => {
+    // Implement function to delete task
+    console.log('Deleting task', taskId);
+  };
 
   return (
     <div>
-      <h2>Task List</h2>
-      <ul>
-        {tasks.map((task) => (
-          <li key={task.id}>
-            <h3>{task.title}</h3>
-            <p>Description: {task.description}</p>
-            <p>Created At: {task.created_at}</p>
-            <p>Deadline: {task.deadline}</p>
-            <p>Progress: {task.progress}</p>
-            <p>Priority: {task.priority}</p>
-            <p>Completed: {task.completed ? 'Yes' : 'No'}</p>
-            <p>User ID: {task.user_id}</p>
-            <p>Group Leader ID: {task.group_leader_id}</p>
-            <h4>Comments:</h4>
-            <ul>
-              {task.comments.map((comment) => (
-                <li key={comment.id}>
-                  <p>{comment.text}</p>
-                  <p>Created At: {comment.created_at}</p>
-                  <p>User ID: {comment.user_id}</p>
-                </li>
-              ))}
-            </ul>
-          </li>
-        ))}
-      </ul>
+      <div>
+        <button onClick={() => setShowAllTasks(false)}>Show Your Tasks</button>
+        <button onClick={() => setShowAllTasks(true)}>Show All Tasks</button>
+      </div>
+      <h2>{showAllTasks ? 'All Tasks' : 'Your Tasks'}</h2>
+      {tasks.map(task => (
+        <div key={task.id}>
+          <h3>{task.title}</h3>
+          <p>{task.description}</p>
+          <div>
+            {showAllTasks ? (
+              <>
+                {/* Display profile picture and username if task.user exists */}
+                {task.user && (
+                  <>
+                    <img src={task.user.profile_image || defaultProfileImage} alt="Profile" style={{ width: '50px', height: '50px' }} />
+                    <span>{task.user.username}</span>
+                  </>
+                )}
+              </>
+            ) : (
+              <>
+                {/* Display group leader if task.group_leader exists */}
+                {task.group_leader && (
+                  <>
+                    <img src={task.group_leader.profile_image || defaultProfileImage} alt="Profile" style={{ width: '50px', height: '50px' }} />
+                    <span>{task.group_leader.username}</span>
+                  </>
+                )}
+              </>
+            )}
+          </div>
+          <Comments taskId={task.id} /> {/* Always render the Comments component */}
+          {!showAllTasks && (
+            <UpdateForm
+              taskId={task.id}
+              onUpdate={handleUpdateTask}
+              onDelete={handleDeleteTask}
+            />
+          )}
+        </div>
+      ))}
     </div>
   );
-};
+}
 
 export default TaskList;
