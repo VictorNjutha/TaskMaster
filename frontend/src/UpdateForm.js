@@ -46,7 +46,7 @@ function UpdateForm({ taskId, accessToken, onUpdate, onDelete }) {
     
 
   const handleDelete = () => {
-    // Send delete request for the taskId
+    // Send delete request for the tskid
     fetch(`http://127.0.0.1:5552/tasks/${taskId}`, {
       method: 'DELETE',
       headers: {
