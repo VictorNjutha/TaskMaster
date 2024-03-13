@@ -8,7 +8,7 @@ const Profile = () => {
   });
 
   useEffect(() => {
-    // Fetch user profile data when the component mounts
+   
     fetchUserProfile();
   }, []);
 
