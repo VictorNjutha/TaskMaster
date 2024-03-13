@@ -11,7 +11,32 @@ const UpdateForm = () => {
     completed: false,
   });
 
+  const [taskTitles, setTaskTitles] = useState([]);
+
   useEffect(() => {
+    const fetchTaskTitles = async () => {
+      try {
+        const response = await fetch('http://127.0.0.1:5552/tasks/titles', {
+          method: 'GET',
+          headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('token'),
+          },
+        });
+        if (!response.ok) {
+          throw new Error('Failed to fetch task titles');
+        }
+        const data = await response.json();
+        setTaskTitles(data.taskTitles);
+      } catch (error) {
+        console.error('Error fetching task titles:', error.message);
+      }
+    };
+
+    fetchTaskTitles();
+  }, []);
+
+  useEffect(() => {
+    // Fetch task data when the id changes
     const fetchTaskData = async () => {
       try {
         const response = await fetch('http://127.0.0.1:5552/tasks/' + taskData.id, {
@@ -75,8 +100,13 @@ const UpdateForm = () => {
       <h2>Update Task</h2>
       <form onSubmit={handleSubmit}>
         <div>
+          {/* Dropdown for task titles */}
           <label>Title:</label>
-          <input type="text" name="title" value={taskData.title} onChange={(e) => setTaskData({ ...taskData, title: e.target.value })} />
+          <select value={taskData.title} onChange={(e) => setTaskData({ ...taskData, title: e.target.value })}>
+            {taskTitles.map((title, index) => (
+              <option key={index} value={title}>{title}</option>
+            ))}
+          </select>
         </div>
         <div>
           <label>Description:</label>
