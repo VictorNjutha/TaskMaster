@@ -17,7 +17,7 @@ const Profile = () => {
       const response = await fetch('http://127.0.0.1:5552/users/profile', {
         method: 'GET',
         headers: {
-          'Authorization': 'Bearer ' + localStorage.getItem('token'), 
+          'Authorization': 'Bearer ' + localStorage.getItem('token'), // Include the JWT token from localStorage
         },
       });
       if (!response.ok) {
