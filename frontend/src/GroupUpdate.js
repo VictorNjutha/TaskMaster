@@ -9,7 +9,7 @@ const GroupUpdate = ({ groupLeaderId, userId, taskId, onUpdate, onDelete }) => {
   const [completed, setCompleted] = useState(false);
 
   useEffect(() => {
-    
+    // Fetch task details when component mounts
     const fetchTask = async () => {
       try {
         const token = localStorage.getItem('token');
