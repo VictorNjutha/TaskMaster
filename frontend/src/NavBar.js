@@ -50,4 +50,3 @@ const NavBar = () => {
 };
 
 export default NavBar;
-g
