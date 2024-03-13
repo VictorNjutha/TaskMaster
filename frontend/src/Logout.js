@@ -13,7 +13,7 @@ const Logout = () => {
       if (!response.ok) {
         throw new Error('Failed to logout');
       }
-     
+      // Clear token from local storage upon successful logout
       localStorage.removeItem('token');
       console.log('Logged out successfully');
     } catch (error) {
