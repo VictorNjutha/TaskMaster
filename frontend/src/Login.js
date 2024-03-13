@@ -22,7 +22,7 @@ function Login() {
     .then(response => response.json())
     .then(data => {
       console.log(data);
-     
+      // Handle success or error here
     })
     .catch(error => {
       console.error('Error:', error);
