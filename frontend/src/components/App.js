@@ -18,7 +18,7 @@ import UpdateForm from './UpdateForm';
 import Dashboard from './Dashboard';
 import Footer from './footer';
 import LandingPage from './LandingPage';
-import 'bootstrap/dist/css/bootstrap.min.css'; // Corrected import path
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   return (
