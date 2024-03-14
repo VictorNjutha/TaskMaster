@@ -14,13 +14,15 @@ import Promote from './Promote';
 import TaskForm from './TaskForm';
 import TaskList from './TaskList';
 import UpdateForm from './UpdateForm';
-import Dashboard from './Dashboard'; 
+import Dashboard from './Dashboard';
+import Footer from './Footer';
 
 const App = () => {
   return (
     <Router>
       <div>
         <NavBar />
+        <div>
         <Routes>
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
@@ -37,6 +39,8 @@ const App = () => {
           <Route path="/updateform" element={<UpdateForm />} />
           <Route path="/dashboard" element={<Dashboard />} /> {/* Define the route for Dashboard */}
         </Routes>
+        <Footer />
+      </div>
       </div>
     </Router>
   );
