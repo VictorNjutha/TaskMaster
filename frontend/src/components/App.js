@@ -38,7 +38,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/promote" element={<Promote />} />
           <Route path="/taskform" element={<TaskForm />} />
-          <Route path="/tasklist" element={<TaskList />} /> {/* Pass images as prop to TaskList */}
+          <Route path="/tasklist" element={<TaskList />} />
           <Route path="/updateform" element={<UpdateForm />} />
           <Route path="/dashboard" element={<Dashboard />} /> {/* Define the route for Dashboard */}
         </Routes>
