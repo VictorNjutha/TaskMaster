@@ -40,7 +40,7 @@ function App() {
           <Route path="/taskform" element={<TaskForm />} />
           <Route path="/tasklist" element={<TaskList />} />
           <Route path="/updateform" element={<UpdateForm />} />
-          <Route path="/dashboard" element={<Dashboard />} /> {/* Define the route for Dashboard */}
+          <Route path="/dashboard" element={<Dashboard />} />
         </Routes>
         <Footer />
       </div>
