@@ -35,7 +35,7 @@ function App() {
           <Route path="/groupform" element={<GroupForm />} />
           <Route path="/grouplist" element={<GroupList />} />
           <Route path="/groupupdate" element={<GroupUpdate />} />
-          <Route path="/profile" element={<Profile />} /> {/* Pass images as prop to Profile */}
+          <Route path="/profile" element={<Profile />} />
           <Route path="/promote" element={<Promote />} />
           <Route path="/taskform" element={<TaskForm />} />
           <Route path="/tasklist" element={<TaskList />} /> {/* Pass images as prop to TaskList */}
