@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import backgroundImage from '../images/landingpage.jpeg';
 
-const Register = ({ onLogin }) => {
+const Register = () => {
   const [registerFormData, setRegisterFormData] = useState({
     registerUsername: '',
     registerEmail: '',
@@ -14,7 +14,27 @@ const Register = ({ onLogin }) => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    // Registration logic here
+    fetch('http://127.0.0.1:5552/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: registerFormData.registerUsername,
+        email: registerFormData.registerEmail,
+        password: registerFormData.registerPassword
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to register');
+      }
+      // Handle successful registration
+      console.log('User registered successfully');
+    })
+    .catch(error => {
+      console.error('Error registering user:', error);
+    });
   };
 
   const backgroundRadialGradientStyle = {

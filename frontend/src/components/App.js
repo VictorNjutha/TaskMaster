@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import NavBar from './NavBar';
 import Register from './Register';
@@ -18,6 +17,7 @@ import UpdateForm from './UpdateForm';
 import Dashboard from './Dashboard';
 import Footer from './footer';
 import LandingPage from './LandingPage';
+import EmailNotificationForm from './EmailNotificationForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
@@ -41,6 +41,7 @@ function App() {
           <Route path="/tasklist" element={<TaskList />} />
           <Route path="/updateform" element={<UpdateForm />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/emailnotificationform" element={<EmailNotificationForm />} />
         </Routes>
         <Footer />
       </div>
@@ -50,4 +51,3 @@ function App() {
 
 export default App;
 
-ReactDOM.render(<App />, document.getElementById('root'));

@@ -8,7 +8,6 @@ const defaultProfileImage = 'https://image.kilimall.com/kenya/shop/store/goods/5
 function TaskList() {
   const [showAllTasks, setShowAllTasks] = useState(false);
   const [tasks, setTasks] = useState([]);
-  
 
   useEffect(() => {
     const fetchTasks = () => {
@@ -46,6 +45,8 @@ function TaskList() {
     console.log('Deleting task', taskId);
   };
 
+  const [showUpdateFormId, setShowUpdateFormId] = useState(null);
+
   return (
     <div>
       <div>
@@ -54,7 +55,7 @@ function TaskList() {
       </div>
       <h2>{showAllTasks ? 'All Tasks' : 'Your Tasks'}</h2>
       {tasks.map(task => (
-        <div key={task.id}>
+        <div key={task.id} onClick={() => setShowUpdateFormId(task.id)}>
           <h3>{task.title}</h3>
           <p>{task.description}</p>
           <div>
@@ -81,7 +82,7 @@ function TaskList() {
             )}
           </div>
           <Comments taskId={task.id} /> {/* Always render the Comments component */}
-          {!showAllTasks && (
+          {showUpdateFormId === task.id && (
             <UpdateForm
               taskId={task.id}
               onUpdate={handleUpdateTask}
@@ -95,3 +96,4 @@ function TaskList() {
 }
 
 export default TaskList;
+

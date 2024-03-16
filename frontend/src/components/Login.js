@@ -29,7 +29,7 @@ function Login() {
     .then(data => {
       console.log(data);
       // Save access token to local storage
-      localStorage.setItem('accessToken', data.access_token);
+      localStorage.setItem('access_token', data.access_token);
       // Handle success
       // Redirect or perform any other actions
     })
