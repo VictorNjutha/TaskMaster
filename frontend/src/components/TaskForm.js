@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom to create the link
 
 function TaskForm() {
   const [formData, setFormData] = useState({
@@ -18,8 +19,8 @@ function TaskForm() {
     fetch('http://127.0.0.1:5552/tasks', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        'Content-Type': 'application/json', // Specify the content type as JSON
+        'Authorization': `Bearer ${localStorage.getItem('access_token')}` // Add JWT token from local storage
       },
       body: JSON.stringify({
         title: formData.title,
@@ -33,6 +34,7 @@ function TaskForm() {
       if (!response.ok) {
         throw new Error('Failed to create task');
       }
+      // Handle successful task creation
       console.log('Task created successfully');
     })
     .catch(error => {
@@ -41,6 +43,8 @@ function TaskForm() {
   };
 
   return (
+    <div>
+       
     <div className="container">
       <div className="row justify-content-center">
         <div className="col-md-6">
@@ -76,6 +80,9 @@ function TaskForm() {
           </div>
         </div>
       </div>
+    </div>
+    <Link to="/emailnotificationform">Enable Email Notifications</Link>
+
     </div>
   );
 }
