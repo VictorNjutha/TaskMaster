@@ -30,11 +30,18 @@ function App() {
 
 function AppRoutes() {
   const location = useLocation();
-  const isLandingPage = location.pathname === '/';
+  const { pathname } = location;
+
+  // Define an array of paths where the navbar should not be displayed
+  const excludePaths = ['/', '/signup', '/login'];
+
+  // Check if the current path is in the excludePaths array
+  const shouldHideNavbar = excludePaths.includes(pathname);
 
   return (
     <div>
-      {!isLandingPage && <NavBar />}
+      {/* Render the navbar only if shouldHideNavbar is false */}
+      {!shouldHideNavbar && <NavBar />}
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/signup" element={<Register />} />
