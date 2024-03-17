@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, useLocation } from 'react-router-dom';
 import NavBar from './NavBar';
 import Register from './Register';
 import Login from './Login';
@@ -15,7 +15,6 @@ import TaskForm from './TaskForm';
 import TaskList from './TaskList';
 import UpdateForm from './UpdateForm';
 import Dashboard from './Dashboard';
-import Footer from './footer';
 import Admin from './Admin';
 import LandingPage from './LandingPage';
 import EmailNotificationForm from './EmailNotificationForm';
@@ -24,32 +23,39 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <Router>
-      <div>
-        <NavBar />
-        <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route path="/signup" element={<Register />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/comments" element={<Comments />} />
-          <Route path="/demote" element={<Demote />} />
-          <Route path="/groupform" element={<GroupForm />} />
-          <Route path="/grouplist" element={<GroupList />} />
-          <Route path="/groupupdate" element={<GroupUpdate />} />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/promote" element={<Promote />} />
-          <Route path="/taskform" element={<TaskForm />} />
-          <Route path="/tasklist" element={<TaskList />} />
-          <Route path="/updateform" element={<UpdateForm />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="/emailnotificationform" element={<EmailNotificationForm />} />
-        </Routes>
-        <Footer />
-      </div>
+      <AppRoutes />
     </Router>
   );
 }
 
-export default App;
+function AppRoutes() {
+  const location = useLocation();
+  const isLandingPage = location.pathname === '/';
 
+  return (
+    <div>
+      {!isLandingPage && <NavBar />}
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/signup" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/logout" element={<Logout />} />
+        <Route path="/comments" element={<Comments />} />
+        <Route path="/demote" element={<Demote />} />
+        <Route path="/groupform" element={<GroupForm />} />
+        <Route path="/grouplist" element={<GroupList />} />
+        <Route path="/groupupdate" element={<GroupUpdate />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/promote" element={<Promote />} />
+        <Route path="/taskform" element={<TaskForm />} />
+        <Route path="/tasklist" element={<TaskList />} />
+        <Route path="/updateform" element={<UpdateForm />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="/emailnotificationform" element={<EmailNotificationForm />} />
+      </Routes>
+    </div>
+  );
+}
+
+export default App;

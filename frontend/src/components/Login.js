@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import backgroundImage from '../images/landingpage.jpeg';
 
 function Login() {
@@ -6,6 +7,8 @@ function Login() {
     email: '',
     password: ''
   });
+
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -30,8 +33,8 @@ function Login() {
       console.log(data);
       // Save access token to local storage
       localStorage.setItem('access_token', data.access_token);
-      // Handle success
-      // Redirect or perform any other actions
+      // Set isLoggedIn to true upon successful login
+      setIsLoggedIn(true);
     })
     .catch(error => {
       console.error('Error:', error);
@@ -90,8 +93,14 @@ function Login() {
                       <input type="checkbox" className="form-check-input" id="exampleCheck1" />
                       <label className="form-check-label" htmlFor="exampleCheck1">Remember me</label>
                     </div>
-                    <button type="login" className="btn btn-primary">Log In</button>
+                    <button type="submit" className="btn btn-primary">Log In</button>
                   </form>
+                  {isLoggedIn && (
+                    <p className="mt-3">
+                      Successfully logged in!{' '}
+                      <Link to="/dashboard" className="btn btn-link">Go to Dashboard</Link>
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
