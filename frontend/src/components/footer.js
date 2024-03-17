@@ -33,7 +33,7 @@ const Footer = () => {
         
         <div className="contact-info">
     <p className="location" style={{ color: 'gray' }}><span className="icon">&#127968;</span>Moringa, Ngong Road, Nairobi</p>
-    <p className="phone" style={{ color: 'gray' }}><span className="icon">&#128241;</span> +254 718 272 729 / +254 716 321 574</p>
+    <p className="phone" style={{ color: 'gray' }}><span className="icon">&#128241;</span> +254 718 272 729 / +254 716 321</p>
 </div>
 
 
