@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import profile from '../images/profile.jpg';
+import '../index.css';
 
 const Profile = () => {
   const [userData, setUserData] = useState({
@@ -7,7 +9,7 @@ const Profile = () => {
   });
 
   // Define the default profile picture URL
-  const defaultProfilePicture = 'https://image.kilimall.com/kenya/shop/store/goods/5603/2022/09/1663988910431b23368a706e8434e822580b9ab7cba98_360.jpg.webp#';
+  const defaultProfilePicture = 'https://i.pinimg.com/564x/fd/cd/d4/fdcdd4eeba23eaaf4cf2d6012102c4b5.jpg';
 
   useEffect(() => {
     // Fetch user profile data when the component mounts
@@ -34,14 +36,32 @@ const Profile = () => {
   };
 
   return (
-    <div>
-      <h2>User Profile</h2>
-      <label>Username:</label>
-      <p>{userData.username}</p>
-      <label>Email:</label>
-      <p>{userData.email}</p>
-      {/* Display the default profile picture */}
-      <img src={userData.profileImage} alt="Profile" />
+    <div className="container-fluid" style={{ backgroundColor: 'lightblue', minHeight: '100vh' }}>
+      <div className="row justify-content-center align-items-center" style={{ minHeight: '100vh' }}>
+        <div className="col-md-6">
+          <div className="card shadow-lg" style={{ backgroundColor: 'rgba(255, 255, 255, 0.8)' }}>
+            <div className="card-body">
+              <h2 className="card-title text-center mb-4">User Profile</h2>
+              <div className="form-group row">
+                <label htmlFor="username" className="col-sm-3 col-form-label">Username:</label>
+                <div className="col-sm-9">
+                  <p id="username">{userData.username}</p>
+                </div>
+              </div>
+              <div className="form-group row">
+                <label htmlFor="email" className="col-sm-3 col-form-label">Email:</label>
+                <div className="col-sm-9">
+                  <p id="email">{userData.email}</p>
+                </div>
+              </div>
+              <div className="text-center">
+                {/* Display the default profile picture */}
+                <img src={userData.profileImage} alt="Profile" className="img-fluid rounded-circle" style={{ maxWidth: '200px' }} />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

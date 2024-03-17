@@ -16,6 +16,7 @@ import TaskList from './TaskList';
 import UpdateForm from './UpdateForm';
 import Dashboard from './Dashboard';
 import Footer from './footer';
+import Admin from './Admin';
 import LandingPage from './LandingPage';
 import EmailNotificationForm from './EmailNotificationForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -41,6 +42,7 @@ function App() {
           <Route path="/tasklist" element={<TaskList />} />
           <Route path="/updateform" element={<UpdateForm />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/admin" element={<Admin />} />
           <Route path="/emailnotificationform" element={<EmailNotificationForm />} />
         </Routes>
         <Footer />
