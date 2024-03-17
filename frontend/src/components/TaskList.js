@@ -12,16 +12,41 @@ function TaskList() {
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
-    // Your fetchTasks function
-  }, [showAllTasks]);
+    const fetchTasks = () => {
+      const url = showAllTasks ? 'http://127.0.0.1:5552/all-tasks' : 'http://127.0.0.1:5552/tasks';
+      fetch(url, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`
+        }
+      })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Failed to fetch tasks');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setTasks(data.tasks);
+      })
+      .catch(error => {
+        console.error('Error fetching tasks:', error);
+      });
+    };
+
+    fetchTasks();
+  }, [showAllTasks]); // Include showAllTasks in the dependency array
 
   const handleUpdateTask = (taskId, newData) => {
     // Implement function to update task
+    console.log('Updating task', taskId, 'with data:', newData);
   };
 
   const handleDeleteTask = (taskId) => {
     // Implement function to delete task
+    console.log('Deleting task', taskId);
   };
+
 
   const onDragEnd = (result) => {
     if (!result.destination) return; // If dropped outside the list, do nothing
