@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import NavBar from './NavBar';
+// import NavBar from './NavBar';
 import Register from './Register';
 import Login from './Login';
 import Logout from './Logout';
@@ -23,8 +23,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 function App() {
   return (
     <Router>
-      <div>
-        <NavBar />
+        {/* <NavBar /> */}
         <div>
         <Routes>
           <Route path="/" element={<LandingPage />} />
