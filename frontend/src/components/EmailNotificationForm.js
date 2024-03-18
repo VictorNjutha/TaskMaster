@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import backgroundImage from '../images/landingpage.jpeg';
+import Footer from './footer';
 
 function EmailNotificationForm({ userEmail }) {
   const [emailNotificationEnabled, setEmailNotificationEnabled] = useState(false);
@@ -50,20 +52,32 @@ function EmailNotificationForm({ userEmail }) {
   };
 
   return (
-    <div>
-      <h2>Email Notification Preference</h2>
-      {errorMessage && <p style={{ color: 'red' }}>{errorMessage}</p>}
-      {successMessage && <p style={{ color: 'green' }}>{successMessage}</p>}
-      <form onSubmit={handleSubmit}>
-        <label>
-          <input type="checkbox" checked={emailNotificationEnabled} onChange={handleToggle} />
-          Enable Email Notifications
-        </label>
-        <button type="submit" disabled={isLoading}>{isLoading ? 'Saving...' : 'Save'}</button>
-        <button type="button" onClick={handleEnable} disabled={emailNotificationEnabled || isLoading}>Enable</button>
-        <button type="button" onClick={handleDisable} disabled={!emailNotificationEnabled || isLoading}>Disable</button>
-      </form>
+    <div><h2>.</h2>
+    <div className="container-fluid" style={{backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', minHeight: '100vh', position: 'relative'}}>
+  <div className="row justify-content-center">
+    <div className="col-md-6">
+      <div className="border p-4" style={{ backgroundColor: '#f2f2f2', marginTop: '50px' }}>
+        <h2 className="mb-4 text-center">Email Notification Preference</h2>
+        {errorMessage && <p style={{ color: 'red', textAlign: 'center' }}>{errorMessage}</p>}
+        {successMessage && <p style={{ color: 'green', textAlign: 'center' }}>{successMessage}</p>}
+        <form onSubmit={handleSubmit}>
+          <label style={{ display: 'block', marginBottom: '10px' }}>
+            <input type="checkbox" checked={emailNotificationEnabled} onChange={handleToggle} />
+            Enable Email Notifications
+          </label>
+          <div className="d-grid gap-2">
+            <button type="submit" className="btn btn-primary" disabled={isLoading}>{isLoading ? 'Saving...' : 'Save'}</button>
+            <button type="button" className="btn btn-success" onClick={handleEnable} disabled={emailNotificationEnabled || isLoading}>Enable</button>
+            <button type="button" className="btn btn-danger" onClick={handleDisable} disabled={!emailNotificationEnabled || isLoading}>Disable</button>
+          </div>
+        </form>
+      </div>
     </div>
+  </div>
+</div>
+<Footer />
+</div>
+
   );
 }
 

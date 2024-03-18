@@ -54,10 +54,12 @@ function Logout() {
   };
 
   return (
-    <div>
-      <h3>Logout or Delete Account</h3>
-      <button onClick={handleLogout}>Logout</button>
-      <button onClick={handleDeleteAccount}>Delete Account</button>
+    <div className="container d-flex justify-content-center align-items-center vh-100">
+      <div className="card p-4">
+        <h3 className="mb-4">Logout or Delete Account</h3>
+        <button className="btn btn-primary mb-2" onClick={handleLogout}>Logout</button>
+        <button className="btn btn-danger" onClick={handleDeleteAccount}>Delete Account</button>
+      </div>
     </div>
   );
 }

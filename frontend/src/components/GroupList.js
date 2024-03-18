@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import GroupUpdate from './GroupUpdate';
+import Footer from './footer';
+import backgroundImage from '../images/landingpage.jpeg';
 
 function GroupList({ groupLeaderId }) {
   const [groupLeaders, setGroupLeaders] = useState([]);
@@ -75,44 +77,53 @@ function GroupList({ groupLeaderId }) {
   };
 
   return (
-    <div className="container border p-4 bg-light">
-      <h2>Group Leader Dashboard</h2>
-      <div>
-        <label>Select Group Leader:</label>
-        <select className="form-select" onChange={e => setSelectedGroupLeader(e.target.value)}>
-          <option value="">Select Group Leader</option>
-          {groupLeaders.map(leader => (
-            <option key={leader.id} value={leader.id}>{leader.id}</option>
-          ))}
-        </select>
-      </div>
-      <h3>Assigned Users:</h3>
-      <ul className="list-group">
-        {assignedUsers && assignedUsers.map(user => (
-          <li key={user.id} onClick={() => handleUserClick(user.id)} className="list-group-item list-group-item-action">
-            {user.username}
-          </li>
-        ))}
-      </ul>
-      {selectedUser && (
-        <div>
-          <h3>Tasks for User {selectedUser}:</h3>
-          <ul className="list-group">
-            {userTasks && userTasks.map(task => (
-              <li key={task.id} onClick={() => setSelectedTask(task)} className="list-group-item list-group-item-action">
-                <strong>{task.title}</strong> - {task.description}
-              </li>
+    <div><h2>.</h2>
+    <div className="container-fluid" style={{backgroundImage: `url(${backgroundImage})`,backgroundSize: 'cover',backgroundPosition: 'center',minHeight: '100vh',position: 'relative',}}>
+  <div className="row justify-content-center">
+    <div className="col-md-6">
+      <div className="border p-4" style={{ backgroundColor: '#f2f2f2', marginTop: '50px' }}>
+        <h2 className="mb-4">Group Leader Dashboard</h2>
+        <div className="form-group mb-4">
+          <label htmlFor="groupLeaderSelect">Select Group Leader:</label>
+          <select id="groupLeaderSelect" className="form-select" onChange={e => setSelectedGroupLeader(e.target.value)}>
+            <option value="">Select Group Leader</option>
+            {groupLeaders.map(leader => (
+              <option key={leader.id} value={leader.id}>{leader.id}</option>
             ))}
-          </ul>
-          {selectedTask && (
-            <GroupUpdate
-              groupLeaderId={selectedGroupLeader}
-              userId={selectedUser}
-              task={selectedTask}
-            />
-          )}
+          </select>
         </div>
-      )}
+        <h3 className="mb-3">Assigned Users:</h3>
+        <ul className="list-group mb-4">
+          {assignedUsers && assignedUsers.map(user => (
+            <li key={user.id} onClick={() => handleUserClick(user.id)} className="list-group-item list-group-item-action">
+              {user.username}
+            </li>
+          ))}
+        </ul>
+        {selectedUser && (
+          <div>
+            <h3 className="mb-3">Tasks for User {selectedUser}:</h3>
+            <ul className="list-group mb-4">
+              {userTasks && userTasks.map(task => (
+                <li key={task.id} onClick={() => setSelectedTask(task)} className="list-group-item list-group-item-action">
+                  <strong>{task.title}</strong> - {task.description}
+                </li>
+              ))}
+            </ul>
+            {selectedTask && (
+              <GroupUpdate
+                groupLeaderId={selectedGroupLeader}
+                userId={selectedUser}
+                task={selectedTask}
+              />
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  </div>
+</div>
+    <Footer />
     </div>
 );
 

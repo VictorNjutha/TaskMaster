@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Footer from './footer';
+import backgroundImage from '../images/landingpage.jpeg';
 
 function GroupForm({ groupLeaderId }) {
   const [groupLeaders, setGroupLeaders] = useState([]);
@@ -140,7 +142,8 @@ function GroupForm({ groupLeaderId }) {
   };
 
   return (
-    <div className="container">
+    <div><h2>.</h2>
+    <div className="container-fluid" style={{backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover',backgroundPosition: 'center',minHeight: '100vh',position: 'relative',}}>
       <div className="row justify-content-center">
         <div className="col-md-6">
           <div className="border p-4" style={{ backgroundColor: '#f2f2f2' }}>
@@ -184,6 +187,8 @@ function GroupForm({ groupLeaderId }) {
         </div>
       </div>
     </div>
+     <Footer />
+     </div>
   );
   
   
