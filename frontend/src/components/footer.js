@@ -1,6 +1,6 @@
 import React from 'react';
-import service1 from '../images/service1.jpeg';
-import container from '../images/container.jpeg';
+import service1 from './src/images/service1.jpeg';
+import container from './src/images/container.jpeg';
 
 const Footer = () => {
   return (
@@ -32,8 +32,8 @@ const Footer = () => {
         <span style={{position: 'relative',zIndex: 0,}}>ficial Info:</span></h4>
         
         <div className="contact-info">
-    <p className="location" style={{ color: 'gray' }}><span className="icon">&#127968;</span>Moringa, Ngong Road, Nairobi</p>
-    <p className="phone" style={{ color: 'gray' }}><span className="icon">&#128241;</span> +254 718 272 729 / +254 716 321</p>
+    <p className="location" style={{ color: 'gray' }}><span className="icon">&#127968;</span>Outering Road, Donholm, Nairobi</p>
+    <p className="phone" style={{ color: 'gray' }}><span className="icon">&#128241;</span> +254 718 272 729 / +254 715 460 922</p>
 </div>
 
 
@@ -73,7 +73,7 @@ const Footer = () => {
         {/* Copyright Notice */}
         <div className="row">
   <div className="col-md-12 text-center" style={{ borderTop: '1px solid gray',marginTop:'40px', paddingTop: '20px', paddingBottom: '10px' }}>
-    <p>© 2024 TaskMaster. All rights reserved.</p>
+    <p>© 2024 Pace of Africa Ltd. All rights reserved.</p>
   </div>
 </div>
 </div>
