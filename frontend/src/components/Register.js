@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import backgroundImage from '../images/landingpage.jpeg';
 
-const Register = ({ onLogin }) => {
+const Register = () => {
   const [registerFormData, setRegisterFormData] = useState({
     registerUsername: '',
     registerEmail: '',
     registerPassword: '',
   });
+
+  const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
   const handleRegisterChange = (e) => {
     setRegisterFormData({ ...registerFormData, [e.target.name]: e.target.value });
@@ -14,7 +17,28 @@ const Register = ({ onLogin }) => {
 
   const handleRegister = (e) => {
     e.preventDefault();
-    // Registration logic here
+    fetch('http://127.0.0.1:5552/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        username: registerFormData.registerUsername,
+        email: registerFormData.registerEmail,
+        password: registerFormData.registerPassword
+      })
+    })
+    .then(response => {
+      if (!response.ok) {
+        throw new Error('Failed to register');
+      }
+      // Handle successful registration
+      console.log('User registered successfully');
+      setRegistrationSuccess(true);
+    })
+    .catch(error => {
+      console.error('Error registering user:', error);
+    });
   };
 
   const backgroundRadialGradientStyle = {
@@ -46,43 +70,51 @@ const Register = ({ onLogin }) => {
             <div className="card" style={bgGlassStyle}>
               <div className="card-body px-4 py-5 px-md-5">
                 <div>
-                  <h2>Sign Up</h2>
-                  <form onSubmit={handleRegister}>
-                    <div className="mb-3">
-                      <label htmlFor="registerUsername" className="form-label">Username:</label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="registerUsername"
-                        name="registerUsername"
-                        value={registerFormData.registerUsername}
-                        onChange={handleRegisterChange}
-                      />
+                  {registrationSuccess ? (
+                    <div>
+                      <p>Registration successful! You can now <Link to="/login">log in</Link>.</p>
                     </div>
-                    <div className="mb-3">
-                      <label htmlFor="registerEmail" className="form-label">Email:</label>
-                      <input
-                        type="email"
-                        className="form-control"
-                        id="registerEmail"
-                        name="registerEmail"
-                        value={registerFormData.registerEmail}
-                        onChange={handleRegisterChange}
-                      />
+                  ) : (
+                    <div>
+                      <h2>Sign Up</h2>
+                      <form onSubmit={handleRegister}>
+                        <div className="mb-3">
+                          <label htmlFor="registerUsername" className="form-label">Username:</label>
+                          <input
+                            type="text"
+                            className="form-control"
+                            id="registerUsername"
+                            name="registerUsername"
+                            value={registerFormData.registerUsername}
+                            onChange={handleRegisterChange}
+                          />
+                        </div>
+                        <div className="mb-3">
+                          <label htmlFor="registerEmail" className="form-label">Email:</label>
+                          <input
+                            type="email"
+                            className="form-control"
+                            id="registerEmail"
+                            name="registerEmail"
+                            value={registerFormData.registerEmail}
+                            onChange={handleRegisterChange}
+                          />
+                        </div>
+                        <div className="mb-3">
+                          <label htmlFor="registerPassword" className="form-label">Password:</label>
+                          <input
+                            type="password"
+                            className="form-control"
+                            id="registerPassword"
+                            name="registerPassword"
+                            value={registerFormData.registerPassword}
+                            onChange={handleRegisterChange}
+                          />
+                        </div>
+                        <button type="register" className="btn btn-primary">Sign Up</button>
+                      </form>
                     </div>
-                    <div className="mb-3">
-                      <label htmlFor="registerPassword" className="form-label">Password:</label>
-                      <input
-                        type="password"
-                        className="form-control"
-                        id="registerPassword"
-                        name="registerPassword"
-                        value={registerFormData.registerPassword}
-                        onChange={handleRegisterChange}
-                      />
-                    </div>
-                    <button type="register" className="btn btn-primary">Sign Up</button>
-                  </form>
+                  )}
                 </div>
               </div>
             </div>

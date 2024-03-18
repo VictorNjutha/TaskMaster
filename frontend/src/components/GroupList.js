@@ -75,11 +75,11 @@ function GroupList({ groupLeaderId }) {
   };
 
   return (
-    <div>
+    <div className="container border p-4 bg-light">
       <h2>Group Leader Dashboard</h2>
       <div>
         <label>Select Group Leader:</label>
-        <select onChange={e => setSelectedGroupLeader(e.target.value)}>
+        <select className="form-select" onChange={e => setSelectedGroupLeader(e.target.value)}>
           <option value="">Select Group Leader</option>
           {groupLeaders.map(leader => (
             <option key={leader.id} value={leader.id}>{leader.id}</option>
@@ -87,20 +87,19 @@ function GroupList({ groupLeaderId }) {
         </select>
       </div>
       <h3>Assigned Users:</h3>
-      <ul>
-      {assignedUsers && assignedUsers.map(user => (
-  <li key={user.id} onClick={() => handleUserClick(user.id)} style={{ cursor: 'pointer' }}>
-    {user.username}
-  </li>
-))}
-
+      <ul className="list-group">
+        {assignedUsers && assignedUsers.map(user => (
+          <li key={user.id} onClick={() => handleUserClick(user.id)} className="list-group-item list-group-item-action">
+            {user.username}
+          </li>
+        ))}
       </ul>
       {selectedUser && (
         <div>
           <h3>Tasks for User {selectedUser}:</h3>
-          <ul>
+          <ul className="list-group">
             {userTasks && userTasks.map(task => (
-              <li key={task.id} onClick={() => setSelectedTask(task)} style={{ cursor: 'pointer' }}>
+              <li key={task.id} onClick={() => setSelectedTask(task)} className="list-group-item list-group-item-action">
                 <strong>{task.title}</strong> - {task.description}
               </li>
             ))}
@@ -115,7 +114,9 @@ function GroupList({ groupLeaderId }) {
         </div>
       )}
     </div>
-  );
+);
+
+
 }
 
 export default GroupList;

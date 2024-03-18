@@ -67,36 +67,80 @@ function UpdateForm({ taskId, accessToken, onUpdate, onDelete }) {
   };
 
   return (
-    <div>
-      <h3>Update Task</h3>
-      <form onSubmit={handleUpdate}>
-        <div>
-          <label>Title:</label>
-          <input type="text" name="title" value={formData.title} onChange={handleChange} />
-        </div>
-        <div>
-          <label>Description:</label>
-          <input type="text" name="description" value={formData.description} onChange={handleChange} />
-        </div>
-        <div>
-          <label>Deadline:</label>
-          <input type="text" name="deadline" value={formData.deadline} onChange={handleChange} />
-        </div>
-        <div>
-          <label>Progress:</label>
-          <input type="number" name="progress" value={formData.progress} onChange={handleChange} />
-        </div>
-        <div>
-          <label>Priority:</label>
-          <input type="text" name="priority" value={formData.priority} onChange={handleChange} />
-        </div>
-        <div>
-          <label>Completed:</label>
-          <input type="checkbox" name="completed" checked={formData.completed} onChange={handleChange} />
-        </div>
-        <button type="submit">Update</button>
-      </form>
-      <button onClick={handleDelete}>Delete</button>
+    <div className="d-flex align-items-center justify-content-center" style={{ minHeight: '100vh' }}>
+      <div className="container border p-4">
+        <h3>Update Task</h3>
+        <form onSubmit={handleUpdate}>
+          <div className="mb-3">
+            <label htmlFor="title" className="form-label">Title:</label>
+            <input 
+              type="text" 
+              id="title" 
+              name="title" 
+              value={formData.title} 
+              onChange={handleChange} 
+              className="form-control" 
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="description" className="form-label">Description:</label>
+            <input 
+              type="text" 
+              id="description" 
+              name="description" 
+              value={formData.description} 
+              onChange={handleChange} 
+              className="form-control" 
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="deadline" className="form-label">Deadline:</label>
+            <input 
+              type="text" 
+              id="deadline" 
+              name="deadline" 
+              value={formData.deadline} 
+              onChange={handleChange} 
+              className="form-control" 
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="progress" className="form-label">Progress:</label>
+            <input 
+              type="number" 
+              id="progress" 
+              name="progress" 
+              value={formData.progress} 
+              onChange={handleChange} 
+              className="form-control" 
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="priority" className="form-label">Priority:</label>
+            <input 
+              type="text" 
+              id="priority" 
+              name="priority" 
+              value={formData.priority} 
+              onChange={handleChange} 
+              className="form-control" 
+            />
+          </div>
+          <div className="mb-3 form-check">
+            <input 
+              type="checkbox" 
+              id="completed" 
+              name="completed" 
+              checked={formData.completed} 
+              onChange={handleChange} 
+              className="form-check-input" 
+            />
+            <label htmlFor="completed" className="form-check-label">Completed</label>
+          </div>
+          <button type="submit" className="btn btn-primary">Update</button>
+        </form>
+        <button onClick={handleDelete} className="btn btn-danger mt-3">Delete</button>
+      </div>
     </div>
   );
 }

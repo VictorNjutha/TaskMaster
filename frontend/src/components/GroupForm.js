@@ -53,7 +53,7 @@ function GroupForm({ groupLeaderId }) {
         console.error('Error fetching users:', error);
       });
   };
-  
+
   const fetchTasks = () => {
     // Fetch all tasks available to assign
     fetch('http://127.0.0.1:5552/all-tasks', {
@@ -74,7 +74,7 @@ function GroupForm({ groupLeaderId }) {
         console.error('Error fetching tasks:', error);
       });
   };
-  
+
 
   const handleSelectGroupLeader = (event) => {
     const selectedId = parseInt(event.target.value);
@@ -140,39 +140,53 @@ function GroupForm({ groupLeaderId }) {
   };
 
   return (
-    <div>
-      <h3>Assign Users and Tasks</h3>
-      <div>
-        <label>Select Group Leader:</label>
-        <select onChange={handleSelectGroupLeader}>
-          <option value="">Select Group Leader</option>
-          {groupLeaders.map(leader => (
-            <option key={leader.id} value={leader.id}>{leader.id}</option>
-          ))}
-        </select>
-      </div>
-      <div>
-        <label>Select User:</label>
-        <select value={selectedUser} onChange={e => setSelectedUser(e.target.value)}>
-          <option value="">Select User</option>
-          {users.map(user => (
-            <option key={user.id} value={user.id}>{user.username}</option>
-          ))}
-        </select>
-        <button onClick={handleAssignUsers}>Assign User</button>
-      </div>
-      <div>
-        <label>Select Task:</label>
-        <select value={selectedTask} onChange={e => setSelectedTask(e.target.value)}>
-          <option value="">Select Task</option>
-          {tasks.map(task => (
-            <option key={task.id} value={task.id}>{task.title}</option>
-          ))}
-        </select>
-        <button onClick={handleAssignTasks}>Assign Task</button>
+    <div className="container">
+      <div className="row justify-content-center">
+        <div className="col-md-6">
+          <div className="border p-4" style={{ backgroundColor: '#f2f2f2' }}>
+            <h3 className="mb-4">Assign Users and Tasks</h3>
+            <div className="form-group">
+              <label htmlFor="groupLeaderSelect">Select Group Leader:</label>
+              <select id="groupLeaderSelect" className="form-control" onChange={handleSelectGroupLeader}>
+                <option value="">Select Group Leader</option>
+                {groupLeaders.map(leader => (
+                  <option key={leader.id} value={leader.id}>{leader.id}</option>
+                ))}
+              </select>
+            </div>
+            <br></br>
+            
+            <div className="form-group">
+              <label htmlFor="userSelect">Select User:</label>
+              <select id="userSelect" className="form-control" value={selectedUser} onChange={e => setSelectedUser(e.target.value)}>
+                <option value="">Select User</option>
+                {users.map(user => (
+                  <option key={user.id} value={user.id} style={{ opacity: 0.8 }}>{user.username}</option>
+                ))}
+              </select>
+              <button className="btn btn-primary mt-2" onClick={handleAssignUsers}>Assign User</button>
+            </div>
+            <br></br>
+
+            <div className="form-group">
+              <label htmlFor="taskSelect">Select Task:</label>
+              <select id="taskSelect" className="form-control" value={selectedTask} onChange={e => setSelectedTask(e.target.value)}>
+                <option value="">Select Task</option>
+                {tasks.map(task => (
+                  <option key={task.id} value={task.id} style={{ opacity: 0.8 }}>{task.title}</option>
+                ))}
+              </select>
+              <button className="btn btn-primary mt-2" onClick={handleAssignTasks}>Assign Task</button>
+            </div>
+            <br></br>
+            
+          </div>
+        </div>
       </div>
     </div>
   );
+  
+  
 }
 
 export default GroupForm;

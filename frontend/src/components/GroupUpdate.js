@@ -59,56 +59,85 @@ function GroupUpdate({ groupLeaderId, userId, task }) {
   };
 
   return (
-    <div>
-      <h3>Edit Task</h3>
-      <label>Title:</label>
-      <input
-        type="text"
-        value={updatedTask?.title || ''}
-        onChange={e => setUpdatedTask({ ...updatedTask, title: e.target.value })}
-      />
+    <div className="d-flex align-items-center justify-content-center bg-light" style={{ minHeight: '100vh' }}>
+      <div className="container border p-4 bg-white">
+        <h3 className="text-center">Edit Task</h3>
+        <form onSubmit={handleUpdate}>
+          <div className="mb-3">
+            <label htmlFor="title" className="form-label">Title:</label>
+            <input
+              type="text"
+              id="title"
+              value={updatedTask?.title || ''}
+              onChange={e => setUpdatedTask({ ...updatedTask, title: e.target.value })}
+              className="form-control"
+            />
+          </div>
 
-      <label>Description:</label>
-      <textarea
-        value={updatedTask?.description || ''}
-        onChange={e => setUpdatedTask({ ...updatedTask, description: e.target.value })}
-      ></textarea>
+          <div className="mb-3">
+            <label htmlFor="description" className="form-label">Description:</label>
+            <textarea
+              id="description"
+              value={updatedTask?.description || ''}
+              onChange={e => setUpdatedTask({ ...updatedTask, description: e.target.value })}
+              className="form-control"
+            ></textarea>
+          </div>
 
-      <label>Deadline:</label>
-      <input
-        type="text"
-        value={updatedTask?.deadline || ''}
-        onChange={e => setUpdatedTask({ ...updatedTask, deadline: e.target.value })}
-      />
+          <div className="mb-3">
+            <label htmlFor="deadline" className="form-label">Deadline:</label>
+            <input
+              type="text"
+              id="deadline"
+              value={updatedTask?.deadline || ''}
+              onChange={e => setUpdatedTask({ ...updatedTask, deadline: e.target.value })}
+              className="form-control"
+            />
+          </div>
 
-      <label>Progress:</label>
-      <input
-        type="number"
-        value={updatedTask?.progress || 0}
-        onChange={e => setUpdatedTask({ ...updatedTask, progress: parseInt(e.target.value) || 0 })}
-      />
+          <div className="mb-3">
+            <label htmlFor="progress" className="form-label">Progress:</label>
+            <input
+              type="number"
+              id="progress"
+              value={updatedTask?.progress || 0}
+              onChange={e => setUpdatedTask({ ...updatedTask, progress: parseInt(e.target.value) || 0 })}
+              className="form-control"
+            />
+          </div>
 
-      <label>Priority:</label>
-      <select
-        value={updatedTask?.priority || ""}
-        onChange={e => setUpdatedTask({ ...updatedTask, priority: e.target.value })}
-      >
-        <option value="low">Low</option>
-        <option value="medium">Medium</option>
-        <option value="high">High</option>
-      </select>
+          <div className="mb-3">
+            <label htmlFor="priority" className="form-label">Priority:</label>
+            <select
+              id="priority"
+              value={updatedTask?.priority || ""}
+              onChange={e => setUpdatedTask({ ...updatedTask, priority: e.target.value })}
+              className="form-select"
+            >
+              <option value="low">Low</option>
+              <option value="medium">Medium</option>
+              <option value="high">High</option>
+            </select>
+          </div>
 
-      <label>Completed:</label>
-      <input
-        type="checkbox"
-        checked={updatedTask?.completed || false}
-        onChange={e => setUpdatedTask({ ...updatedTask, completed: e.target.checked })}
-      />
+          <div className="mb-3 form-check">
+            <input
+              type="checkbox"
+              id="completed"
+              checked={updatedTask?.completed || false}
+              onChange={e => setUpdatedTask({ ...updatedTask, completed: e.target.checked })}
+              className="form-check-input"
+            />
+            <label htmlFor="completed" className="form-check-label">Completed</label>
+          </div>
 
-      <button onClick={handleUpdate}>Update</button>
-      <button onClick={handleDelete}>Delete</button>
+          <button type="submit" className="btn btn-primary">Update</button>
+          <button onClick={handleDelete} className="btn btn-danger">Delete</button>
+        </form>
+      </div>
     </div>
-  );
+);
+
 }
 
 export default GroupUpdate;
