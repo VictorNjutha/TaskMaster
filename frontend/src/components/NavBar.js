@@ -24,9 +24,7 @@ const NavBar = ({ navbarBackground, logoImage }) => {
             <li className="nav-item">
               <Link className="nav-link" to="/profile" style={{ fontWeight: 'bold',color: 'white' }}>Profile</Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/promote" style={{ fontWeight: 'bold',color: 'white' }}>Promote</Link>
-            </li>
+            
             <li className="nav-item">
               <Link className="nav-link" to="/taskform" style={{ fontWeight: 'bold',color: 'white' }}>Task Form</Link>
             </li>
@@ -40,7 +38,7 @@ const NavBar = ({ navbarBackground, logoImage }) => {
               <Link className="nav-link" to="/logout" style={{ fontWeight: 'bold',color: 'white' }}>Logout</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/demote" style={{ fontWeight: 'bold',color: 'white' }}>Demote</Link>
+              <Link className="nav-link" to="/admin" style={{ fontWeight: 'bold',color: 'white' }}>Admin</Link>
             </li>
           </ul>
         </div>
