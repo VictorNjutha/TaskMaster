@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import backgroundImage from '../images/landingpage.jpeg';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import NavBar from './NavBar';
+import Footer from './footer';
 
 // Progress Bar Component
 const ProgressBar = ({ value, label }) => {
@@ -55,22 +55,39 @@ function Dashboard() {
 
   return (
     <div>
-      <h2>Welcome to My Dashboard</h2>
-      <div>
-        <button onClick={() => setShowAllTasks(false)}>Your Tasks</button>
-        <button onClick={() => setShowAllTasks(true)}>All Tasks</button>
+      <h2>.</h2>
+      <div style={{backgroundColor: 'hsl(218, 41%, 15%)', backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', opacity: '1.0', height: '100vh', overflow: 'hidden', position: 'relative',}}>
+  <div className="col-lg-6 mb-5 mb-lg-0 position-relative">
+    <div className="card" style={{ backgroundColor: 'hsla(0, 0%, 100%, 0.8)', backdropFilter: 'saturate(200%) blur(25px)', borderRadius: '15px', opacity: '1.0',}}>
+      <div className="card-body px-4 py-5 px-md-5">
+        <div>
+          <h2 style={{ textAlign: 'center' }}>Welcome to My Dashboard</h2>
+          <div className="mb-3">
+            <button style={{ marginRight: '10px', marginBottom: '10px' }} onClick={() => setShowAllTasks(false)} className="btn btn-primary">Your Tasks</button>
+            <button style={{ marginBottom: '10px' }} onClick={() => setShowAllTasks(true)} className="btn btn-primary">All Tasks</button>
+          </div>
+          <div>
+            <h3>Task Overview</h3>
+            <p>Total Tasks: {totalTasks}</p>
+            <p>Completed Tasks: {completedTasks}</p>
+            <p>Overdue Tasks: {overdueTasks}</p>
+            <p>Upcoming Deadlines: {upcomingDeadlines}</p>
+            {/* Progress Bars */}
+            <div className="progress mb-3">
+              <div className="progress-bar bg-success" role="progressbar" style={{ width: `${(completedTasks / totalTasks) * 100}%` }} aria-valuenow={(completedTasks / totalTasks) * 100} aria-valuemin="0" aria-valuemax="100">Completed Tasks</div>
+            </div>
+            <div className="progress mb-3">
+              <div className="progress-bar bg-danger" role="progressbar" style={{ width: `${(overdueTasks / totalTasks) * 100}%` }} aria-valuenow={(overdueTasks / totalTasks) * 100} aria-valuemin="0" aria-valuemax="100">Overdue Tasks</div>
+            </div>
+            <div className="progress mb-3">
+              <div className="progress-bar bg-warning" role="progressbar" style={{ width: `${(upcomingDeadlines / totalTasks) * 100}%` }} aria-valuenow={(upcomingDeadlines / totalTasks) * 100} aria-valuemin="0" aria-valuemax="100">Upcoming Deadlines</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div>
-        <h3>Task Overview</h3>
-        <p>Total Tasks: {totalTasks}</p>
-        <p>Completed Tasks: {completedTasks}</p>
-        <p>Overdue Tasks: {overdueTasks}</p>
-        <p>Upcoming Deadlines: {upcomingDeadlines}</p>
-        {/* Progress Bars */}
-        <ProgressBar value={(completedTasks / totalTasks) * 100} label="Completed Tasks" />
-        <ProgressBar value={(overdueTasks / totalTasks) * 100} label="Overdue Tasks" />
-        <ProgressBar value={(upcomingDeadlines / totalTasks) * 100} label="Upcoming Deadlines" />
-      </div>
+    </div>
+  </div>
+</div>
 
       <div className="container mt-4" style={{ backgroundColor: 'white', border: '1px solid #dee2e6', borderRadius: '5px', padding: '20px' }}>
         <h2 style={{ textAlign: 'center' }}>WE SPECIALISE IN TASK MANAGEMENT</h2>
@@ -127,7 +144,9 @@ function Dashboard() {
     </div>
   </div>
 </div>
+<Footer />
     </div>
+   
   );
 }
 

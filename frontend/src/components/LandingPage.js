@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import '/node_modules/bootstrap/dist/css/bootstrap.min.css';
 import backgroundImage from '../images/landingpage.jpeg';
+import Footer from './footer';
 
 const LandingPage = () => {
   return (
@@ -20,6 +21,7 @@ const LandingPage = () => {
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 };

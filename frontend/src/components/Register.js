@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import backgroundImage from '../images/landingpage.jpeg';
+import Footer from './footer';
 
 const Register = () => {
   const [registerFormData, setRegisterFormData] = useState({
@@ -60,6 +61,7 @@ const Register = () => {
   };
 
   return (
+    <div>
     <section style={backgroundRadialGradientStyle}>
       <div className="container px-4 py-5 px-md-5 text-center text-lg-start my-5">
         <div className="row gx-lg-5 align-items-center mb-5">
@@ -122,6 +124,8 @@ const Register = () => {
         </div>
       </div>
     </section>
+     <Footer />
+     </div>
   );
 };
 

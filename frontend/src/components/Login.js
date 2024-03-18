@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import backgroundImage from '../images/landingpage.jpeg';
+import Footer from './footer';
 
 function Login() {
   const [formData, setFormData] = useState({
@@ -68,6 +69,7 @@ function Login() {
   };
 
   return (
+    <div>
     <section style={backgroundRadialGradientStyle}>
       <div className="container px-4 py-5 px-md-5 text-center text-lg-start my-5" style={containerStyle}>
         <div className="row gx-lg-5 align-items-center mb-5">
@@ -108,6 +110,8 @@ function Login() {
         </div>
       </div>
     </section>
+     <Footer />
+     </div>
   );
 }
 
