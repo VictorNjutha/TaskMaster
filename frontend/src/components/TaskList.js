@@ -12,6 +12,7 @@ function TaskList() {
   const [tasks, setTasks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const [selectedTask, setSelectedTask] = useState(null);
 
   useEffect(() => {
     const fetchTasks = () => {
@@ -38,7 +39,7 @@ function TaskList() {
     };
 
     fetchTasks();
-  }, [showAllTasks, currentPage]); // Include showAllTasks and currentPage in the dependency array
+  }, [showAllTasks, currentPage]);
 
   const handleUpdateTask = (taskId, newData) => {
     // Implement function to update task
@@ -64,74 +65,79 @@ function TaskList() {
     setTasks(items);
   };
 
+  const handleTaskClick = (taskId) => {
+    setSelectedTask(taskId);
+  };
+
   return (
     <div className="page-container">
       <div className="container pt-5">
-    <DragDropContext onDragEnd={onDragEnd}>
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-md-auto">
-            <button className="btn btn-primary mr-2" onClick={() => setShowAllTasks(false)}>Show Your Tasks</button>
-            <button className="btn btn-primary" onClick={() => setShowAllTasks(true)}>Show All Tasks</button>
-          </div>
-        </div>
-        <h2 className="mt-4">{showAllTasks ? 'All Tasks' : 'Your Tasks'}</h2>
-        <Droppable droppableId="tasks">
-          {(provided) => (
-            <div {...provided.droppableProps} ref={provided.innerRef}>
-              {tasks.map((task, index) => (
-                <Draggable key={task.id} draggableId={task.id} index={index}>
-                  {(provided) => (
-                    <div
-                      {...provided.draggableProps}
-                      {...provided.dragHandleProps}
-                      ref={provided.innerRef}
-                    >
-                      <div className="card mt-3">
-                        <div className="card-body">
-                          <h3 className="card-title">{task.title}</h3>
-                          <p className="card-text">{task.description}</p>
-                          <div className="d-flex align-items-center">
-                            {/* Display profile picture and username */}
-                            <img src={task.user?.profile_image || defaultProfileImage} alt="Profile" style={{ width: '50px', height: '50px', marginRight: '10px', borderRadius: '50%' }} />
-                            <span>{task.user?.username}</span>
-                          </div>
-                          <Comments taskId={task.id} />
-                          {!showAllTasks && (
-                            <UpdateForm
-                              taskId={task.id}
-                              onUpdate={handleUpdateTask}
-                              onDelete={handleDeleteTask}
-                            />
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  )}
-                </Draggable>
-              ))}
-              {provided.placeholder}
+        <DragDropContext onDragEnd={onDragEnd}>
+          <div className="container">
+            <div className="row justify-content-center">
+              <div className="col-md-auto">
+                <button className="btn btn-primary mr-2" onClick={() => setShowAllTasks(false)}>Show Your Tasks</button>
+                <button className="btn btn-primary" onClick={() => setShowAllTasks(true)}>Show All Tasks</button>
+              </div>
             </div>
-          )}
-        </Droppable>
-        <nav>
-          <ul className="pagination justify-content-center">
-            <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
-              <button className="page-link" onClick={() => handlePageChange(currentPage - 1)}>{'Previous'}</button>
-            </li>
-            {[...Array(totalPages).keys()].map((page) => (
-              <li key={page} className={`page-item ${currentPage === page + 1 ? 'active' : ''}`}>
-                <button className="page-link" onClick={() => handlePageChange(page + 1)}>{page + 1}</button>
-              </li>
-            ))}
-            <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
-              <button className="page-link" onClick={() => handlePageChange(currentPage + 1)}>{'Next'}</button>
-            </li>
-          </ul>
-        </nav>
+            <h2 className="mt-4">{showAllTasks ? 'All Tasks' : 'Your Tasks'}</h2>
+            <Droppable droppableId="tasks">
+              {(provided) => (
+                <div {...provided.droppableProps} ref={provided.innerRef}>
+                  {tasks.map((task, index) => (
+                    <Draggable key={task.id} draggableId={task.id} index={index}>
+                      {(provided) => (
+                        <div
+                          {...provided.draggableProps}
+                          {...provided.dragHandleProps}
+                          ref={provided.innerRef}
+                          onClick={() => handleTaskClick(task.id)}
+                        >
+                          <div className={`card mt-3 ${selectedTask === task.id ? 'border-primary' : ''}`}>
+                            <div className="card-body">
+                              <h3 className="card-title">{task.title}</h3>
+                              <p className="card-text">{task.description}</p>
+                              <div className="d-flex align-items-center">
+                                {/* Display profile picture and username */}
+                                <img src={task.user?.profile_image || defaultProfileImage} alt="Profile" style={{ width: '50px', height: '50px', marginRight: '10px', borderRadius: '50%' }} />
+                                <span>{task.user?.username}</span>
+                              </div>
+                              <Comments taskId={task.id} />
+                              {selectedTask === task.id && (
+                                <UpdateForm
+                                  taskId={task.id}
+                                  onUpdate={handleUpdateTask}
+                                  onDelete={handleDeleteTask}
+                                />
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </Draggable>
+                  ))}
+                  {provided.placeholder}
+                </div>
+              )}
+            </Droppable>
+            <nav>
+              <ul className="pagination justify-content-center">
+                <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+                  <button className="page-link" onClick={() => handlePageChange(currentPage - 1)}>{'Previous'}</button>
+                </li>
+                {[...Array(totalPages).keys()].map((page) => (
+                  <li key={page} className={`page-item ${currentPage === page + 1 ? 'active' : ''}`}>
+                    <button className="page-link" onClick={() => handlePageChange(page + 1)}>{page + 1}</button>
+                  </li>
+                ))}
+                <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+                  <button className="page-link" onClick={() => handlePageChange(currentPage + 1)}>{'Next'}</button>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </DragDropContext>
       </div>
-    </DragDropContext>
-    </div>
     </div>
   );
 }
