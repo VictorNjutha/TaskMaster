@@ -64,13 +64,16 @@ function Admin({ onPromote, onDemote }) {
   }, []);
 
   const handlePromote = () => {
-    if (!selectedUserId) {
-      console.error('No user selected for promotion');
+    if (users.length === 0) {
+      console.error('No users available for promotion');
       return;
     }
-
+  
+    const firstUser = users[0]; // Select the first user in the list
+    const userIdToPromote = firstUser.id;
+  
     // Send promote request for the selected user
-    fetch(`http://127.0.0.1:5552/users/${selectedUserId}/promote`, {
+    fetch(`http://127.0.0.1:5552/users/${userIdToPromote}/promote`, {
       method: 'PATCH',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('access_token')}`
@@ -82,13 +85,14 @@ function Admin({ onPromote, onDemote }) {
       }
       // Handle successful promotion
       console.log('User promoted to group leader');
-      setPromotionMessage(`User promoted to group leader with ID ${selectedUserId}`);
+      setPromotionMessage(`User promoted to group leader with ID ${userIdToPromote}`);
       onPromote(); // Notify parent component
     })
     .catch(error => {
       console.error('Error promoting user:', error);
     });
   };
+  
 
   const handleDemote = () => {
     if (!selectedGroupLeaderId) {
