@@ -16,7 +16,7 @@ const NavBar = ({ navbarBackground, logoImage }) => {
               <Link className="nav-link" to="/dashboard" style={{ fontWeight: 'bold',color: 'white' }}>Dashboard</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/taskform" style={{ fontWeight: 'bold',color: 'white' }}>Create Task</Link>
+              <Link className="nav-link" to="/taskform" style={{fontWeight: 'bold',color: 'white' }}>Create Task</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/tasklist" style={{ fontWeight: 'bold',color: 'white' }}>Task List</Link>
