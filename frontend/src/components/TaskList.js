@@ -59,10 +59,14 @@ function TaskList() {
   };
 
   return (
+    
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-auto">
+            <br></br>
+            <br></br>
+            <br></br>
             <button className="btn btn-primary mr-2" style={{ backgroundColor: '', border: 'none', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '20px', padding: '10px 20px' }} onClick={() => setShowAllTasks(false)}>Show Your Tasks</button>
             
             <button className="btn btn-primary" style={{ border: 'none', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '20px', padding: '10px 20px' }} onClick={() => setShowAllTasks(true)}>Show All Tasks</button>
