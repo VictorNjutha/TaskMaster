@@ -10,10 +10,12 @@ const defaultProfileImage = 'https://image.kilimall.com/kenya/shop/store/goods/5
 function TaskList() {
   const [showAllTasks, setShowAllTasks] = useState(false);
   const [tasks, setTasks] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     const fetchTasks = () => {
-      const url = showAllTasks ? 'http://127.0.0.1:5552/all-tasks' : 'http://127.0.0.1:5552/tasks';
+      const url = showAllTasks ? `http://127.0.0.1:5552/all-tasks?page=${currentPage}` : `http://127.0.0.1:5552/tasks?page=${currentPage}`;
       fetch(url, {
         method: 'GET',
         headers: {
@@ -28,6 +30,7 @@ function TaskList() {
       })
       .then(data => {
         setTasks(data.tasks);
+        setTotalPages(data.total_pages);
       })
       .catch(error => {
         console.error('Error fetching tasks:', error);
@@ -35,7 +38,7 @@ function TaskList() {
     };
 
     fetchTasks();
-  }, [showAllTasks]); // Include showAllTasks in the dependency array
+  }, [showAllTasks, currentPage]); // Include showAllTasks and currentPage in the dependency array
 
   const handleUpdateTask = (taskId, newData) => {
     // Implement function to update task
@@ -47,6 +50,9 @@ function TaskList() {
     console.log('Deleting task', taskId);
   };
 
+  const handlePageChange = (newPage) => {
+    setCurrentPage(newPage);
+  };
 
   const onDragEnd = (result) => {
     if (!result.destination) return; // If dropped outside the list, do nothing
@@ -59,17 +65,12 @@ function TaskList() {
   };
 
   return (
-    
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="container">
         <div className="row justify-content-center">
           <div className="col-md-auto">
-            <br></br>
-            <br></br>
-            <br></br>
-            <button className="btn btn-primary mr-2" style={{ backgroundColor: '', border: 'none', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '20px', padding: '10px 20px' }} onClick={() => setShowAllTasks(false)}>Show Your Tasks</button>
-            
-            <button className="btn btn-primary" style={{ border: 'none', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '20px', padding: '10px 20px' }} onClick={() => setShowAllTasks(true)}>Show All Tasks</button>
+            <button className="btn btn-primary mr-2" onClick={() => setShowAllTasks(false)}>Show Your Tasks</button>
+            <button className="btn btn-primary" onClick={() => setShowAllTasks(true)}>Show All Tasks</button>
           </div>
         </div>
         <h2 className="mt-4">{showAllTasks ? 'All Tasks' : 'Your Tasks'}</h2>
@@ -111,6 +112,21 @@ function TaskList() {
             </div>
           )}
         </Droppable>
+        <nav>
+          <ul className="pagination justify-content-center">
+            <li className={`page-item ${currentPage === 1 ? 'disabled' : ''}`}>
+              <button className="page-link" onClick={() => handlePageChange(currentPage - 1)}>{'Previous'}</button>
+            </li>
+            {[...Array(totalPages).keys()].map((page) => (
+              <li key={page} className={`page-item ${currentPage === page + 1 ? 'active' : ''}`}>
+                <button className="page-link" onClick={() => handlePageChange(page + 1)}>{page + 1}</button>
+              </li>
+            ))}
+            <li className={`page-item ${currentPage === totalPages ? 'disabled' : ''}`}>
+              <button className="page-link" onClick={() => handlePageChange(currentPage + 1)}>{'Next'}</button>
+            </li>
+          </ul>
+        </nav>
       </div>
     </DragDropContext>
   );
