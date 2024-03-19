@@ -2,43 +2,44 @@ import React, { useState } from 'react';
 
 function GroupUpdate({ groupLeaderId, userId, task }) {
   const [updatedTask, setUpdatedTask] = useState(task);
-
-  const handleUpdate = () => {
+  const [successMessage, setSuccessMessage] = useState('');
+ 
+  const handleUpdate = (e) => {
+    e.preventDefault(); // Prevent default form submission
+ 
     const accessToken = localStorage.getItem('access_token');
     if (!accessToken) {
-      // Handle case where access token is not available
       console.error('Access token not found');
       return;
     }
-  
-    // Ensure completed field is a boolean value
+ 
     const updatedTaskWithBooleanCompleted = {
       ...updatedTask,
-      completed: updatedTask.completed === 'true' // Convert 'on' string to boolean
+      completed: updatedTask.completed === 'true'
     };
-  
+ 
     fetch(`http://127.0.0.1:5552/group_leaders/${groupLeaderId}/users/${userId}/tasks/${task.id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${accessToken}`,
       },
-      body: JSON.stringify(updatedTaskWithBooleanCompleted), // Send updatedTaskWithBooleanCompleted instead of updatedTask
+      body: JSON.stringify(updatedTaskWithBooleanCompleted),
     })
       .then(response => {
         if (!response.ok) {
           throw new Error('Failed to update task');
         }
         console.log('Task updated successfully');
+        setSuccessMessage('Task updated successfully');
       })
       .catch(error => console.error('Error updating task:', error));
   };
-  
+ 
 
   const handleDelete = () => {
     const accessToken = localStorage.getItem('access_token');
     if (!accessToken) {
-      // Handle case where access token is not available
       console.error('Access token not found');
       return;
     }
@@ -54,6 +55,7 @@ function GroupUpdate({ groupLeaderId, userId, task }) {
           throw new Error('Failed to delete task');
         }
         console.log('Task deleted successfully');
+        setSuccessMessage('Task deleted successfully');
       })
       .catch(error => console.error('Error deleting task:', error));
   };
@@ -132,12 +134,12 @@ function GroupUpdate({ groupLeaderId, userId, task }) {
           </div>
 
           <button type="submit" className="btn btn-primary">Update</button>
-          <button onClick={handleDelete} className="btn btn-danger">Delete</button>
+          <button type="button" onClick={handleDelete} className="btn btn-danger">Delete</button>
+          {successMessage && <p>{successMessage}</p>}
         </form>
       </div>
     </div>
-);
-
+  );
 }
 
 export default GroupUpdate;

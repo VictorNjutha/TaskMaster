@@ -9,6 +9,8 @@ function GroupForm({ groupLeaderId }) {
   const [selectedTask, setSelectedTask] = useState('');
   const [users, setUsers] = useState([]);
   const [tasks, setTasks] = useState([]);
+  const [assignUserSuccess, setAssignUserSuccess] = useState(false);
+  const [assignTaskSuccess, setAssignTaskSuccess] = useState(false);
 
   useEffect(() => {
     fetchGroupLeaders();
@@ -110,6 +112,7 @@ function GroupForm({ groupLeaderId }) {
           throw new Error('Failed to assign users');
         }
         console.log('Users assigned successfully');
+        setAssignUserSuccess(true);
         // Optionally, you can fetch group leaders again to update the list
         // fetchGroupLeaders();
       })
@@ -135,6 +138,7 @@ function GroupForm({ groupLeaderId }) {
           throw new Error('Failed to assign tasks');
         }
         console.log('Tasks assigned successfully');
+        setAssignTaskSuccess(true);
         // Optionally, you can fetch group leaders again to update the list
         // fetchGroupLeaders();
       })
@@ -142,56 +146,56 @@ function GroupForm({ groupLeaderId }) {
   };
 
   return (
-    <div><h2>.</h2>
-    <div className="container-fluid" style={{backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover',backgroundPosition: 'center',minHeight: '100vh',position: 'relative',}}>
-      <div className="row justify-content-center">
-        <div className="col-md-6">
-          <div className="border p-4" style={{ backgroundColor: '#f2f2f2' }}>
-            <h3 className="mb-4">Assign Users and Tasks</h3>
-            <div className="form-group">
-              <label htmlFor="groupLeaderSelect">Select Group Leader:</label>
-              <select id="groupLeaderSelect" className="form-control" onChange={handleSelectGroupLeader}>
-                <option value="">Select Group Leader</option>
-                {groupLeaders.map(leader => (
-                  <option key={leader.id} value={leader.id}>{leader.id}</option>
-                ))}
-              </select>
-            </div>
-            <br></br>
-            
-            <div className="form-group">
-              <label htmlFor="userSelect">Select User:</label>
-              <select id="userSelect" className="form-control" value={selectedUser} onChange={e => setSelectedUser(e.target.value)}>
-                <option value="">Select User</option>
-                {users.map(user => (
-                  <option key={user.id} value={user.id} style={{ opacity: 0.8 }}>{user.username}</option>
-                ))}
-              </select>
-              <button className="btn btn-primary mt-2" onClick={handleAssignUsers}>Assign User</button>
-            </div>
-            <br></br>
+    <div>
+      <div className="container-fluid" style={{backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover',backgroundPosition:'center',minHeight: '100vh',position: 'relative'}}>
+        <div className="row justify-content-center">
+          <div className="col-md-6">
+            <div className="border p-4" style={{ backgroundColor: '#f2f2f2' }}>
+              <h3 className="mb-4">Assign Users and Tasks</h3>
+              <div className="form-group">
+                <label htmlFor="groupLeaderSelect">Select Group Leader:</label>
+                <select id="groupLeaderSelect" className="form-control" onChange={handleSelectGroupLeader}>
+                  <option value="">Select Group Leader</option>
+                  {groupLeaders.map(leader => (
+                    <option key={leader.id} value={leader.id}>{leader.id}</option>
+                  ))}
+                </select>
+              </div>
+              <br></br>
+              
+              <div className="form-group">
+                <label htmlFor="userSelect">Select User:</label>
+                <select id="userSelect" className="form-control" value={selectedUser} onChange={e => setSelectedUser(e.target.value)}>
+                  <option value="">Select User</option>
+                  {users.map(user => (
+                    <option key={user.id} value={user.id} style={{ opacity: 0.8 }}>{user.username}</option>
+                  ))}
+                </select>
+                <button className="btn btn-primary mt-2" onClick={handleAssignUsers}>Assign User</button>
+                {assignUserSuccess && <span className="text-success ml-2">User assigned successfully</span>}
+              </div>
+              <br></br>
 
-            <div className="form-group">
-              <label htmlFor="taskSelect">Select Task:</label>
-              <select id="taskSelect" className="form-control" value={selectedTask} onChange={e => setSelectedTask(e.target.value)}>
-                <option value="">Select Task</option>
-                {tasks.map(task => (
-                  <option key={task.id} value={task.id} style={{ opacity: 0.8 }}>{task.title}</option>
-                ))}
-              </select>
-              <button className="btn btn-primary mt-2" onClick={handleAssignTasks}>Assign Task</button>
+              <div className="form-group">
+                <label htmlFor="taskSelect">Select Task:</label>
+                <select id="taskSelect" className="form-control" value={selectedTask} onChange={e => setSelectedTask(e.target.value)}>
+                  <option value="">Select Task</option>
+                  {tasks.map(task => (
+                    <option key={task.id} value={task.id} style={{ opacity: 0.8 }}>{task.title}</option>
+                  ))}
+                </select>
+                <button className="btn btn-primary mt-2" onClick={handleAssignTasks}>Assign Task</button>
+                {assignTaskSuccess && <span className="text-success ml-2">Task assigned successfully</span>}
+              </div>
+              <br></br>
+              
             </div>
-            <br></br>
-            
           </div>
         </div>
       </div>
+      <Footer />
     </div>
-     <Footer />
-     </div>
   );
-  
-  
 }
 
 export default GroupForm;

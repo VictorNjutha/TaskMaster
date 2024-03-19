@@ -5,7 +5,7 @@ import UpdateForm from './UpdateForm';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Define the default profile image URL
-const defaultProfileImage = 'https://image.kilimall.com/kenya/shop/store/goods/5603/2022/09/1663988910431b23368a706e8434e822580b9ab7cba98_360.jpg.webp#';
+const defaultProfileImage = 'https://i.pinimg.com/564x/fd/cd/d4/fdcdd4eeba23eaaf4cf2d6012102c4b5.jpg';
 
 function TaskList() {
   const [showAllTasks, setShowAllTasks] = useState(false);
@@ -65,6 +65,8 @@ function TaskList() {
   };
 
   return (
+    <div className="page-container">
+      <div className="container pt-5">
     <DragDropContext onDragEnd={onDragEnd}>
       <div className="container">
         <div className="row justify-content-center">
@@ -129,6 +131,8 @@ function TaskList() {
         </nav>
       </div>
     </DragDropContext>
+    </div>
+    </div>
   );
 }
 

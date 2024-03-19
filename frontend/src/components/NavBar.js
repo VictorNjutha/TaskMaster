@@ -16,7 +16,16 @@ const NavBar = ({ navbarBackground, logoImage }) => {
               <Link className="nav-link" to="/dashboard" style={{ fontWeight: 'bold',color: 'white' }}>Dashboard</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/groupform" style={{ fontWeight: 'bold',color: 'white' }}>Group Form</Link>
+              <Link className="nav-link" to="/taskform" style={{ fontWeight: 'bold',color: 'white' }}>Create Task</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/tasklist" style={{ fontWeight: 'bold',color: 'white' }}>Task List</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/admin" style={{ fontWeight: 'bold',color: 'white' }}>Admin</Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/groupform" style={{ fontWeight: 'bold',color: 'white' }}>Create Group</Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/grouplist" style={{ fontWeight: 'bold',color: 'white' }}>Group List</Link>
@@ -24,18 +33,8 @@ const NavBar = ({ navbarBackground, logoImage }) => {
             <li className="nav-item">
               <Link className="nav-link" to="/profile" style={{ fontWeight: 'bold',color: 'white' }}>Profile</Link>
             </li>
-            
-            <li className="nav-item">
-              <Link className="nav-link" to="/taskform" style={{ fontWeight: 'bold',color: 'white' }}>Task Form</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/tasklist" style={{ fontWeight: 'bold',color: 'white' }}>Task List</Link>
-            </li>
             <li className="nav-item">
               <Link className="nav-link" to="/logout" style={{ fontWeight: 'bold',color: 'white' }}>Logout</Link>
-            </li>
-            <li className="nav-item">
-              <Link className="nav-link" to="/admin" style={{ fontWeight: 'bold',color: 'white' }}>Admin</Link>
             </li>
           </ul>
         </div>

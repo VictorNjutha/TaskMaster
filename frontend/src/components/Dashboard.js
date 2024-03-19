@@ -61,15 +61,48 @@ function Dashboard() {
   return (
     <div>
       <h2>.</h2>
-      <div style={{backgroundColor: 'hsl(218, 41%, 15%)', backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center', opacity: '1.0', height: '100vh', overflow: 'hidden', position: 'relative',}}>
-        <div className="col-lg-6 mb-5 mb-lg-0 position-relative">
-          <div className="card" style={{ backgroundColor: 'hsla(0, 0%, 100%, 0.8)', backdropFilter: 'saturate(200%) blur(25px)', borderRadius: '15px', opacity: '1.0',}}>
+      <div
+        style={{
+          backgroundColor: 'hsl(218, 41%, 15%)',
+          backgroundImage: `url(${backgroundImage})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          opacity: '1.0',
+          height: '100vh',
+          overflow: 'hidden',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+        }}
+      >
+        <div className="col-lg-6 mb-5 mb-lg-0">
+          <div
+            className="card"
+            style={{
+              backgroundColor: 'hsla(0, 0%, 100%, 0.8)',
+              backdropFilter: 'saturate(200%) blur(25px)',
+              borderRadius: '15px',
+              opacity: '1.0',
+            }}
+          >
             <div className="card-body px-4 py-5 px-md-5">
               <div>
                 <h2 style={{ textAlign: 'center' }}>Welcome to My Dashboard</h2>
                 <div className="mb-3">
-                  <button style={{ marginRight: '10px', marginBottom: '10px' }} onClick={() => setShowAllTasks(false)} className="btn btn-primary">Your Tasks</button>
-                  <button style={{ marginBottom: '10px' }} onClick={() => setShowAllTasks(true)} className="btn btn-primary">All Tasks</button>
+                  <button
+                    style={{ marginRight: '10px', marginBottom: '10px' }}
+                    onClick={() => setShowAllTasks(false)}
+                    className="btn btn-primary"
+                  >
+                    Your Tasks
+                  </button>
+                  <button
+                    style={{ marginBottom: '10px' }}
+                    onClick={() => setShowAllTasks(true)}
+                    className="btn btn-primary"
+                  >
+                    All Tasks
+                  </button>
                 </div>
                 <div>
                   <h3>Task Overview</h3>

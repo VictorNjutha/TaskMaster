@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import Footer from './footer';
+import backgroundImage from '../images/landingpage.jpeg';
 
 function Admin({ onPromote, onDemote }) {
   const [users, setUsers] = useState([]);
@@ -11,6 +13,7 @@ function Admin({ onPromote, onDemote }) {
   const [selectedGroupLeaderId, setSelectedGroupLeaderId] = useState(null);
   const [loadingGroupLeaders, setLoadingGroupLeaders] = useState(true);
   const [errorGroupLeaders, setErrorGroupLeaders] = useState(null);
+  const [demotionMessage, setDemotionMessage] = useState(null); // Add state for demotion message
 
   useEffect(() => {
     // Fetch all users
@@ -106,6 +109,7 @@ function Admin({ onPromote, onDemote }) {
       }
       // Handle successful demotion
       console.log('Group leader demoted to normal user');
+      setDemotionMessage(`Group leader demoted to normal user with ID ${selectedGroupLeaderId}`);
       onDemote(); // Notify parent component
     })
     .catch(error => {
@@ -123,8 +127,18 @@ function Admin({ onPromote, onDemote }) {
 
   return (
     <div>
-      <div className="container mt-5">
-        <div className="row">
+      <div><h2>.</h2></div>
+      <div className="container-fluid" style={{
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        minHeight: '100vh',
+        position: 'relative',
+        display: 'flex', // Add this line
+        justifyContent: 'center', // Center horizontally
+        alignItems: 'center' // Center vertically
+      }}>
+        <div className="row" style={{ width: '100%', maxWidth: '960px' }}> {/* Adjust the maxWidth according to your preference */}
           <div className="col-md-6">
             <div className="card">
               <div className="card-body">
@@ -160,12 +174,14 @@ function Admin({ onPromote, onDemote }) {
                     </select>
                   </div>
                   <button type="button" className="btn btn-primary" onClick={handleDemote}>Demote</button>
+                  {demotionMessage && <p>{demotionMessage}</p>} {/* Display demotion message */}
                 </form>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
