@@ -5,7 +5,7 @@ function Comments({ taskId }) {
   const [comments, setComments] = useState([]);
 
   const fetchComments = () => {
-    fetch(`http://127.0.0.1:5552/all-tasks/${taskId}`, {
+    fetch(`https://task-master-backend-ng4l.onrender.com/all-tasks/${taskId}`, {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('access_token')}`
@@ -28,7 +28,7 @@ function Comments({ taskId }) {
   useEffect(() => {
     const fetchComments = async () => {
       try {
-        const response = await fetch(`http://127.0.0.1:5552/all-tasks/${taskId}`, {
+        const response = await fetch(`https://task-master-backend-ng4l.onrender.com/all-tasks/${taskId}`, {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${localStorage.getItem('access_token')}`
@@ -48,7 +48,7 @@ function Comments({ taskId }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    fetch('http://127.0.0.1:5552/comments', {
+    fetch('https://task-master-backend-ng4l.onrender.com/comments', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -76,7 +76,7 @@ function Comments({ taskId }) {
   };
 
   const handleDelete = (commentId) => {
-    fetch(`http://127.0.0.1:5552/comments/${commentId}`, {
+    fetch(`https://task-master-backend-ng4l.onrender.com/comments/${commentId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('access_token')}`

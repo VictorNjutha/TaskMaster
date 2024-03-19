@@ -10,7 +10,7 @@ function Logout() {
       return;
     }
 
-    fetch('http://127.0.0.1:5552/logout', {
+    fetch('https://task-master-backend-ng4l.onrender.com/logout', {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -36,7 +36,7 @@ function Logout() {
       return;
     }
 
-    fetch('http://127.0.0.1:5552/delete_account', {
+    fetch('https://task-master-backend-ng4l.onrender.com/delete_account', {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${accessToken}`,

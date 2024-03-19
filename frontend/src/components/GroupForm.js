@@ -19,7 +19,7 @@ function GroupForm({ groupLeaderId }) {
   }, []);
 
   const fetchGroupLeaders = () => {
-    fetch('http://127.0.0.1:5552/group_leaders', {
+    fetch('https://task-master-backend-ng4l.onrender.com/group_leaders', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('access_token')}`
@@ -39,7 +39,7 @@ function GroupForm({ groupLeaderId }) {
 
   const fetchUsers = () => {
     // Fetch all users available to assign
-    fetch('http://127.0.0.1:5552/users', {
+    fetch('https://task-master-backend-ng4l.onrender.com/users', {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('access_token')}`
       }
@@ -60,7 +60,7 @@ function GroupForm({ groupLeaderId }) {
 
   const fetchTasks = () => {
     // Fetch all tasks available to assign
-    fetch('http://127.0.0.1:5552/all-tasks', {
+    fetch('https://task-master-backend-ng4l.onrender.com/all-tasks', {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('access_token')}`
       }
@@ -99,7 +99,7 @@ function GroupForm({ groupLeaderId }) {
       return;
     }
 
-    fetch(`http://127.0.0.1:5552/group_leaders/${selectedGroupLeader.id}/assign_users`, {
+    fetch(`https://task-master-backend-ng4l.onrender.com/group_leaders/${selectedGroupLeader.id}/assign_users`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -125,7 +125,7 @@ function GroupForm({ groupLeaderId }) {
       return;
     }
 
-    fetch(`http://127.0.0.1:5552/group_leaders/${selectedGroupLeader.id}/users/${selectedUser}/assign_tasks`, {
+    fetch(`https://task-master-backend-ng4l.onrender.com/group_leaders/${selectedGroupLeader.id}/users/${selectedUser}/assign_tasks`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

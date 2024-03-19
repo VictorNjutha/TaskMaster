@@ -20,7 +20,7 @@ function GroupList({ groupLeaderId }) {
     }
 
     // Fetch group leaders
-    fetch('http://127.0.0.1:5552/group_leaders', {
+    fetch('https://task-master-backend-ng4l.onrender.com/group_leaders', {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
@@ -37,7 +37,7 @@ function GroupList({ groupLeaderId }) {
   useEffect(() => {
     if (selectedGroupLeader) {
       // Fetch assigned users for the selected group leader
-      fetch(`http://127.0.0.1:5552/group_leaders/${selectedGroupLeader}/users`, {
+      fetch(`https://task-master-backend-ng4l.onrender.com/group_leaders/${selectedGroupLeader}/users`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('access_token')}`,
         },
@@ -63,7 +63,7 @@ function GroupList({ groupLeaderId }) {
       return;
     }
 
-    fetch(`http://127.0.0.1:5552/group_leaders/${selectedGroupLeader}/users/${userId}/tasks`, {
+    fetch(`https://task-master-backend-ng4l.onrender.com/group_leaders/${selectedGroupLeader}/users/${userId}/tasks`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },

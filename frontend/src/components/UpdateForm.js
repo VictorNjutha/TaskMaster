@@ -20,7 +20,7 @@ function UpdateForm({ taskId, accessToken, onUpdate, onDelete }) {
   const handleUpdate = (e) => {
     e.preventDefault();
     console.log('Updating task with ID:', taskId);
-    fetch(`http://127.0.0.1:5552/tasks/${taskId}`, {
+    fetch(`https://task-master-backend-ng4l.onrender.com/tasks/${taskId}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ function UpdateForm({ taskId, accessToken, onUpdate, onDelete }) {
   };
 
   const handleDelete = () => {
-    fetch(`http://127.0.0.1:5552/tasks/${taskId}`, {
+    fetch(`https://task-master-backend-ng4l.onrender.com/tasks/${taskId}`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('access_token')}`

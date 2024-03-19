@@ -19,7 +19,7 @@ function EmailNotificationForm({ userEmail }) {
     setSuccessMessage(''); // Clear any previous success message
 
     // Submit the preference to the backend
-    fetch('http://127.0.0.1:5552/email-notification', {
+    fetch('https://task-master-backend-ng4l.onrender.com/email-notification', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

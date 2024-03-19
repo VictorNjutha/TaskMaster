@@ -16,7 +16,7 @@ function TaskList() {
 
   useEffect(() => {
     const fetchTasks = () => {
-      const url = showAllTasks ? `http://127.0.0.1:5552/all-tasks?page=${currentPage}` : `http://127.0.0.1:5552/tasks?page=${currentPage}`;
+      const url = showAllTasks ? `https://task-master-backend-ng4l.onrender.com/all-tasks?page=${currentPage}` : `https://task-master-backend-ng4l.onrender.com/tasks?page=${currentPage}`;
       fetch(url, {
         method: 'GET',
         headers: {
@@ -103,7 +103,7 @@ function TaskList() {
                                 <span>{task.user?.username}</span>
                               </div>
                               <Comments taskId={task.id} />
-                              {selectedTask === task.id && (
+                              {!showAllTasks && selectedTask === task.id && (
                                 <UpdateForm
                                   taskId={task.id}
                                   onUpdate={handleUpdateTask}

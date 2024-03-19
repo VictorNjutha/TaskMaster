@@ -18,7 +18,7 @@ function GroupUpdate({ groupLeaderId, userId, task }) {
       completed: updatedTask.completed === 'true'
     };
  
-    fetch(`http://127.0.0.1:5552/group_leaders/${groupLeaderId}/users/${userId}/tasks/${task.id}`, {
+    fetch(`https://task-master-backend-ng4l.onrender.com/group_leaders/${groupLeaderId}/users/${userId}/tasks/${task.id}`, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
@@ -44,7 +44,7 @@ function GroupUpdate({ groupLeaderId, userId, task }) {
       return;
     }
 
-    fetch(`http://127.0.0.1:5552/group_leaders/${groupLeaderId}/users/${userId}/tasks/${task.id}`, {
+    fetch(`https://task-master-backend-ng4l.onrender.com/group_leaders/${groupLeaderId}/users/${userId}/tasks/${task.id}`, {
       method: 'DELETE',
       headers: {
         Authorization: `Bearer ${accessToken}`,

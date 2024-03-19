@@ -17,7 +17,7 @@ function Admin({ onPromote, onDemote }) {
 
   useEffect(() => {
     // Fetch all users
-    fetch('http://127.0.0.1:5552/users', {
+    fetch('https://task-master-backend-ng4l.onrender.com/users', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('access_token')}`
@@ -40,7 +40,7 @@ function Admin({ onPromote, onDemote }) {
     });
 
     // Fetch group leaders data
-    fetch('http://127.0.0.1:5552/group_leaders', {
+    fetch('https://task-master-backend-ng4l.onrender.com/group_leaders', {
       method: 'GET',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('access_token')}`
@@ -73,7 +73,7 @@ function Admin({ onPromote, onDemote }) {
     const userIdToPromote = firstUser.id;
   
     // Send promote request for the selected user
-    fetch(`http://127.0.0.1:5552/users/${userIdToPromote}/promote`, {
+    fetch(`https://task-master-backend-ng4l.onrender.com/users/${userIdToPromote}/promote`, {
       method: 'PATCH',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('access_token')}`
@@ -101,7 +101,7 @@ function Admin({ onPromote, onDemote }) {
     }
 
     // Send demote request for the selected group leader
-    fetch(`http://127.0.0.1:5552/group_leaders/${selectedGroupLeaderId}`, {
+    fetch(`https://task-master-backend-ng4l.onrender.com/group_leaders/${selectedGroupLeaderId}`, {
       method: 'PATCH',
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('access_token')}`

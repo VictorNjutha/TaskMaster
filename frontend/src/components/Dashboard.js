@@ -27,7 +27,7 @@ function Dashboard() {
 
   useEffect(() => {
     const fetchTasks = async () => {
-      const url = showAllTasks ? 'http://127.0.0.1:5552/all-tasks' : 'http://127.0.0.1:5552/tasks';
+      const url = showAllTasks ? 'https://task-master-backend-ng4l.onrender.com/all-tasks' : 'https://task-master-backend-ng4l.onrender.com/tasks';
       try {
         const response = await fetch(url, {
           method: 'GET',
