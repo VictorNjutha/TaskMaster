@@ -1,6 +1,7 @@
 import React from 'react';
 import service1 from '../images/service1.jpeg';
 import container from '../images/container.jpeg';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -22,7 +23,7 @@ const Footer = () => {
     <p style={{ color: 'gray' }}>Subscribe to our newsletter to get our latest updates & news</p>
     <form>
         <input type="email" placeholder="Your email address" className="form-control mb-2" />
-        <button type="submit" className="btn btn-primary">Subscribe</button>
+        <Link to="/EmailNotificationForm" className="btn btn-primary btn-lg mx-2 px-4 py-2">Subscribe</Link>
     </form>
 </div>
 

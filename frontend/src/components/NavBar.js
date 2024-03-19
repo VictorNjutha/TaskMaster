@@ -32,9 +32,6 @@ const NavBar = ({ navbarBackground, logoImage }) => {
               <Link className="nav-link" to="/tasklist" style={{ fontWeight: 'bold',color: 'white' }}>Task List</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/" style={{ fontWeight: 'bold',color: 'white' }}>Log Out</Link>
-            </li>
-            <li className="nav-item">
               <Link className="nav-link" to="/logout" style={{ fontWeight: 'bold',color: 'white' }}>Logout</Link>
             </li>
             <li className="nav-item">

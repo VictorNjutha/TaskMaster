@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function Logout() {
   const handleLogout = () => {
@@ -57,8 +58,14 @@ function Logout() {
     <div className="container d-flex justify-content-center align-items-center vh-100">
       <div className="card p-4">
         <h3 className="mb-4">Logout or Delete Account</h3>
-        <button className="btn btn-primary mb-2" onClick={handleLogout}>Logout</button>
-        <button className="btn btn-danger" onClick={handleDeleteAccount}>Delete Account</button>
+        <div className="d-flex justify-content-center">
+  <button className="btn btn-danger btn-lg mx-2 px-4 py-2" onClick={handleDeleteAccount}>
+    Delete Account
+  </button>
+  <Link to="/" className="btn btn-primary btn-lg mx-2 px-4 py-2">
+    Log Out
+  </Link>
+</div>
       </div>
     </div>
   );
